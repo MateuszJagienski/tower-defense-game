@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BasicTower">
+    <Position X="11.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\BasicTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MortarTower">
+    <Position X="16.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAQAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\MortarTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShotgunTower">
+    <Position X="18.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\ShotgunTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TackShooterTower">
+    <Position X="14" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\TackShooterTower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Targetter">
+    <Position X="17.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAABAAAAAAAAAAAAAAgAIAAQABAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\Targetter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tower">
+    <Position X="20.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAiAAAAAABAAAAAAQAAAIAAIAAQAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\Tower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerController">
+    <Position X="15" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAYQAAAAICAICEAAAAAQEAAAARIIAAAAACQAAQAoAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\TowerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerData">
+    <Position X="20.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAiAAAAAABAAAAAAAAAAIAAAAAQAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\TowerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerPlacement">
+    <Position X="24.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASQIAAIACgAAJAAgAEEAAAABAAAAgCAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Towers\TowerPlacement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TowerType">
+    <Position X="28.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Towers\TowerController.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

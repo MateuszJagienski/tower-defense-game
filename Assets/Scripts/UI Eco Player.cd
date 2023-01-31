@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GameUI">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAAAQAAAAABAAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\GameUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowersShopUI">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAQAACAAABAEAAAAIAAACEAAAAAAAAAAAAAADQA=</HashCode>
+      <FileName>Assets\Scripts\UI\TowersShopUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TowerUI">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQSAAAAACAAAAAAMAAAAAACAAAEAABGAAAFAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\TowerUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIController">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAASAACAAgAAAAAAAAAAIAAAAAAAAAAAAAFgA=</HashCode>
+      <FileName>Assets\Scripts\UI\UIController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraController">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAACAAAAAAIAAAAAgAABAAAQAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\CameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DamagePlayer">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\DamagePlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerHealth">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAACACgAAAAAAQAAABEAAAAQAAAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerHealth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EconomySystem">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQCAICAAAAAAAAAAAAgAAABAAAAAQAAAAAAAAAk=</HashCode>
+      <FileName>Assets\Scripts\Economy\EconomySystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

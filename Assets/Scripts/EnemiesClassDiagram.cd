@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Enemy" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABECAAAAGAAwAAAIAAAAAABAAAAAQABQABCgAAAQgA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EnemyData">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAQAAAABAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\EnemyData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyMovement">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAACAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Enemies\EnemyMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyPrefabs">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\EnemyPrefabs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemySpawner">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAAAAAAAAAAAAAABAAAAAQAAAAIAQgAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\EnemySpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wave">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABEAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Wave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PartWave">
+    <Position X="9" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAACAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\Wave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaveData">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\WaveData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaveManager">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABIAAACAIAAAAAAEAQAAgAABAAAAAQCAACAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemies\WaveManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,26 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
+public class MainMenu : MonoBehaviour
+{
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Scene01", LoadSceneMode.Single);
+    }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
+    public void ShowOptions()
+    {
+
+    }
+}

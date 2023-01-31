@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BasicBullet">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BacisBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAAAwAAAAEAAAAABEAAAAQEAAABCgAAAEgA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\Bullet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BulletController">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAEAAACCAAQBAoAAAAAAAAIAAACAAABgAgAAigEI=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BulletController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletData">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAAAgAAAAAAAAAAAEAAAAQAAAABAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BulletData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletSpawner">
+    <Position X="13.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAgAAABAAAAAAAABAAAAAQAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BulletSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExplosiveBullet">
+    <Position X="8.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\ExplosiveBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MortarBullet">
+    <Position X="10.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAEAAAAAAEAAAAAAIAAAAAAAAQAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Bullets\MortarBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BulletType">
+    <Position X="14" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BulletController.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BulletMovementType">
+    <Position X="12.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Bullets\BulletMovementType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
