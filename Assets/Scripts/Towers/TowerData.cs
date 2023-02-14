@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Object Data", menuName = "Data/TowerData")]
 public class TowerData : ScriptableObject

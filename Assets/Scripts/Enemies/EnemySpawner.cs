@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,6 +7,9 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private Enemy[] enemyPrefabs;
+
+    [SerializeField]
+    private EnemyController enemyController;
 
     private static EnemySpawner instance;
 
@@ -30,20 +30,15 @@ public class EnemySpawner : MonoBehaviour
     {
     }
 
-    public Enemy SpawnEnemy(int enemyID)
+    public EnemyController SpawnEnemy(int enemyID)
     {
-        return Instantiate(GetEnemyById(enemyID), spawnPosition.position, Quaternion.identity);
+        var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);
+        enemy.ActivateEnemyById(enemyID);
+        return enemy;
     }
 
-    private Enemy GetEnemyById(int enemyID) 
+    private EnemyController GetEnemyById(int enemyID) 
     {
-        for (int i = 0; i < enemyPrefabs.Length; i++)
-        {
-            if (enemyPrefabs[i].ID == enemyID)
-            {
-                return enemyPrefabs[i];
-            }
-        }
-        return null;
+        return enemyController.ActivateEnemyById(enemyID);
     }
 }

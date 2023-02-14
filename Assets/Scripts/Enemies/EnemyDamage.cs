@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField]
-    private Enemy enemy;
+    private EnemyController enemy;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<BulletController>() != null)

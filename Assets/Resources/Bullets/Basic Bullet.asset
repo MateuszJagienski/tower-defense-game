@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9289a0f8b28bfe47bd660cbea0a221c, type: 3}
   m_Name: Basic Bullet
   m_EditorClassIdentifier: 
-  InitialDamage: 02000000
-  Speed: 0a000000
+  InitialDamage: 32000000
+  Speed: 05000000
   Range: 0a000000
   SplashRange: 00000000
   SplashDamage: 00000000

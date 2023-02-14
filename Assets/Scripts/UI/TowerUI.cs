@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +10,9 @@ public class TowerUI : MonoBehaviour
     public Text upgradeDescription;
     public Button sellButton;
     public Button upgradeButton;
+    [SerializeField]
+    private GameUI gameUI;
+    [SerializeField]
     private Canvas canvas;
     [SerializeField]
     private GameObject rangeGhost;
@@ -23,9 +23,10 @@ public class TowerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameUI.selectionChanged += OnSelectionChanged;
+        Debug.Log("inside Start, TowerUI");
+        gameUI.selectionChanged += OnSelectionChanged;
      //   GameUI.Instance.selectionChanged += OnSelectionChanged;
-        canvas = GetComponent<Canvas>();
+     //   canvas = GetComponent<Canvas>();
         canvas.enabled = false;
         rangeGhost = Instantiate(rangeGhost);
     }

@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5279750351400799464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -632, y: 354, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -137,9 +137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetter: {fileID: 8694005692382406163}
-  bulletPrefab: {fileID: 7217429519058709916, guid: 3871164ef75bf3b4e9a1bad7d418d490,
+  bulletPrefab: {fileID: 3226389890031044426, guid: 5757a63254138c84c8ac082a524aa10d,
     type: 3}
-  towerUI: {fileID: 0}
+  towerUI: {fileID: 7217429519058709916, guid: 3871164ef75bf3b4e9a1bad7d418d490, type: 3}
   models:
   - {fileID: 8334284454566655189}
   - {fileID: 6214884526155702343}

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -92,5 +94,13 @@ public class WaveManager : MonoBehaviour
     public int GetCurrentWave()
     {
         return currentWave + 1;
+    }
+
+    [ContextMenu("Fill Waves")]
+    void FillWaves()
+    {
+        waves = Resources.LoadAll("waves", typeof(WaveData))
+            .Cast<WaveData>()
+            .ToList();
     }
 }

@@ -58,19 +58,21 @@ public class TowerController : MonoBehaviour
         {
             return;
         }
-        activeBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        activeBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.LookRotation(target.position));
         activeBullet.GetComponent<BulletController>().SetStartedPosition(startedPostion);
-        activeBullet.GetComponent<BulletController>().SetTarget(target);
+        activeBullet.GetComponent<BulletController>().SetTargetInfo(target);
         activeBullet.GetComponent<BulletController>().SetBulletMovementType(bulletMovementType);
 
     }
 
-    public void PrepareBullet(Vector3 startedPostion, Vector3 targetPosition, BulletMovementType bulletMovementType)
+    // requiers target direction vector, currentTarget.transform.position - transform.position;
+    public void PrepareBullet(Vector3 startedPostion, Vector3 targetDirection)
     {
-        activeBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        activeBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.identity);
         activeBullet.GetComponent<BulletController>().SetStartedPosition(startedPostion);
-        activeBullet.GetComponent<BulletController>().SetTargetPosition(targetPosition);
-        activeBullet.GetComponent<BulletController>().SetBulletMovementType(bulletMovementType);
+
+        activeBullet.GetComponent<BulletController>().SetBulletMovementType(BulletMovementType.Straight);
+        activeBullet.GetComponent<BulletController>().SetShotDirection(targetDirection);
 
     }
 
@@ -119,7 +121,7 @@ public class TowerController : MonoBehaviour
         var currentClosestDistance = 999f;
         foreach (var e in enemies)
         {
-            var enemy = e.GetComponent<Enemy>();
+            var enemy = e.GetComponent<EnemyController>();
 
             if (enemy.CurrentWaypointIndex >= currentMax && e.activeInHierarchy)
             {
@@ -159,7 +161,7 @@ public class TowerController : MonoBehaviour
         var currentMaxDistance = 0f;
         foreach (var e in enemies)
         {
-            var enemy = e.GetComponent<Enemy>();
+            var enemy = e.GetComponent<EnemyController>();
 
             if (enemy.CurrentWaypointIndex <= currentMin && e.activeInHierarchy)
             {

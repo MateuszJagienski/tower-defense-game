@@ -28,7 +28,7 @@ public class MortarTower : TowerController
             var target = FixedTarget();
             Debug.Log(target);
             Debug.Log("inside fire blt, mort");
-            PrepareBullet(transform.position, FixedTarget(), BulletMovementType.VerticallyLaunched);
+         //   PrepareBullet(transform.position, FixedTarget(), BulletMovementType.VerticallyLaunched);
 
             yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }

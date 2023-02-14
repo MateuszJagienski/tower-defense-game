@@ -14,5 +14,4 @@ public class Tower : MonoBehaviour
     public int TowerLvl = 0;
     [SerializeField]
     private TowerData towerData;
-
 }

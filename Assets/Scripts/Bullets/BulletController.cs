@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -5,7 +6,8 @@ public class BulletController : MonoBehaviour
     protected Transform target;
 
     protected Vector3 startedPosition;
-    protected Vector3 currentTargetPosition = new Vector3(0, 0 ,0);
+    protected Vector3 currentDirection;
+    public Vector3 currentTargetPostion;
     protected float traveledDistance = 0;
     protected Bullet bullet;
 
@@ -20,6 +22,9 @@ public class BulletController : MonoBehaviour
     public virtual void Update()
     {
         Attack();
+        // rotation toward enemy
+        if (target == null || !target.gameObject.activeInHierarchy) return;
+       // transform.LookAt(target.position, Vector3.forward);
     }
 
 
@@ -31,7 +36,7 @@ public class BulletController : MonoBehaviour
                 FollowEnemy(target);
                 break;
             case BulletMovementType.Straight:
-                AttackInStaightDirection(currentTargetPosition);
+                AttackInStaightDirection(currentDirection);
                 break;
             case BulletMovementType.VerticallyLaunched:
                 //
@@ -40,26 +45,29 @@ public class BulletController : MonoBehaviour
     }
 
     public void FollowEnemy(Transform target)
-    {        
+    {
+        transform.LookAt(target.position, Vector3.forward);
         var step = bullet.Speed * Time.deltaTime;
         step = Mathf.Clamp01(step);
-        if (target.gameObject == null || !target.gameObject.activeInHierarchy)
+
+        if (target == null || target.gameObject.activeInHierarchy)
         {
-            //transform.position += (currentTargetPosition - startedPosition) * bullet.Speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, currentTargetPosition + 10 * (currentTargetPosition - startedPosition), step);
+            currentDirection = (target.position - startedPosition).normalized;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
         }
         else
         {
-            currentTargetPosition = target.position;
-            transform.position = Vector3.MoveTowards(transform.position, currentTargetPosition, step);
+            transform.position += currentDirection * bullet.Speed * Time.deltaTime;
         }
         DistanceBulletCanTravel();
     }
 
-    public void AttackInStaightDirection(Vector3 position)
+    public void AttackInStaightDirection(Vector3 directionTarget)
     {
-        var direction = position;
+        Debug.Log($"dir: {directionTarget}");
+        var direction = directionTarget;
         transform.position += direction * bullet.Speed * Time.deltaTime;
+        Debug.Log($"trans.pos: {transform.position}");
         DistanceBulletCanTravel();
     }
 
@@ -74,7 +82,7 @@ public class BulletController : MonoBehaviour
 
     public void EnemyHit()
     {
-        if (bullet.SplashRange < 0)
+        if (bullet.SplashRange <= 0)
         {
             return;
         }
@@ -82,28 +90,36 @@ public class BulletController : MonoBehaviour
 
         foreach (var e in enemiesInSplashRange)
         {
-            if (e.GetComponent<Enemy>() != null)
+            if (e.GetComponent<EnemyController>() != null)
             {
-                e.GetComponent<Enemy>().TakeDamage(bullet.SplashDamage);
+                e.GetComponent<EnemyController>().TakeDamage(bullet.SplashDamage);
             }
         }
     }    
 
-    public Collider[] GetEnemiesInSplashRange()
+    private Collider[] GetEnemiesInSplashRange()
     {
         var enemiesInSplashRange = Physics.OverlapSphere(transform.position, bullet.SplashRange);
         return enemiesInSplashRange;
     }
 
-    public void SetTarget(Transform target)
+    //
+    public void SetTargetInfo(Transform target)
     {
         this.target = target;
-        currentTargetPosition = target.position;
+        currentDirection = (target.transform.position - startedPosition).normalized; // ???
+        currentDirection.y = 0;
+        currentTargetPostion = target.transform.position;
     }
 
-    public void SetTargetPosition(Vector3 position)
+    public void SetShotDirection(Vector3 direction)
     {
-        currentTargetPosition = position;
+        currentDirection = direction;
+        var rotation = Quaternion.LookRotation(currentDirection.normalized);
+        rotation *= transform.rotation;
+        transform.rotation = rotation;
+        //transform.LookAt(currentDirection);
+
     }
 
     public void SetStartedPosition(Vector3 startedPosition)

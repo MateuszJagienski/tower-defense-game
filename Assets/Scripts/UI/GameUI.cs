@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
 public class GameUI : MonoBehaviour
 {
-
-    public static event Action<Tower> selectionChanged;
-
+    [SerializeField]
+    public UnityEvent<Tower> OnSelection;
+    public event Action<Tower> selectionChanged;
     [SerializeField]
     private LayerMask layerMask;
 
@@ -21,7 +21,14 @@ public class GameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+    
+      //  if (Input.GetMouseButton(0))
+      //  {
+      //      TrySelectTower();
+      //  }
+
+        // clicked once
+        if (Input.GetMouseButtonDown(0))
         {
             TrySelectTower();
         }
@@ -38,6 +45,7 @@ public class GameUI : MonoBehaviour
             if (tower != null)
             {
                 selectionChanged(tower);
+                OnSelection.Invoke(tower);
             }
         } 
         else if (!EventSystem.current.IsPointerOverGameObject())
@@ -45,4 +53,5 @@ public class GameUI : MonoBehaviour
             selectionChanged(null);
         }
     }
+
 }

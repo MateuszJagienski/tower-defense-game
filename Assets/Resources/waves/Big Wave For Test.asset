@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Big Wave For Test
   m_EditorClassIdentifier: 
   PartWave:
+  - quantity: 10
+    timeBetweenSpawn: 0.1
+    enemyID: 4
   - quantity: 100
     timeBetweenSpawn: 0.1
     enemyID: 6

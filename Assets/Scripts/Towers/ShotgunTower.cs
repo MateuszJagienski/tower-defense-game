@@ -36,7 +36,7 @@ public class ShotgunTower : TowerController
                 degree += 5 * (i + 1);
 
                 rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
-                PrepareBullet(transform.position, rotatedVector, BulletMovementType.Straight);
+                PrepareBullet(transform.position, rotatedVector);
             }
             yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }

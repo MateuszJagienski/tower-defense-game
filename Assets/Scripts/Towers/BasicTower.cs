@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 public class BasicTower : TowerController
@@ -35,7 +30,10 @@ public class BasicTower : TowerController
                 yield return new WaitForSeconds(1 / tower.AttackSpeed);
             } else
             {
-                PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Follow);
+                var direction = currentTarget.transform.position - transform.position;
+                //PrepareBullet(transform.position, direction, BulletMovementType.Straight);
+                //PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Straight); // for follow type, fix it later
+                PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Follow); // for follow type, fix it later
             }
             yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }

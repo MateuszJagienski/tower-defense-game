@@ -190,7 +190,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3569982935154689623}
-  m_Father: {fileID: 578657991344414107}
+  m_Father: {fileID: 6006821461206080702}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2518152167689453638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,8 +389,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 578657991344414107}
+  - component: {fileID: 6006821461206080702}
   - component: {fileID: 8024769378678538627}
+  - component: {fileID: 1205107953105355520}
   m_Layer: 0
   m_Name: TowerUI
   m_TagString: Untagged
@@ -398,15 +399,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &578657991344414107
-Transform:
+--- !u!224 &6006821461206080702
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5149737439673790165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 532.8903, y: 216.99887, z: 526.13464}
+  m_LocalPosition: {x: 0, y: 0, z: 526.13464}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -414,6 +415,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 532.8903, y: 216.99887}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8024769378678538627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +432,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e44130d62bc90f418c0d2bed2bf0223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerName: {fileID: 0}
+  description: {fileID: 0}
+  upgradeDescription: {fileID: 0}
+  sellButton: {fileID: 0}
+  upgradeButton: {fileID: 0}
+  canvas: {fileID: 0}
+  rangeGhost: {fileID: 0}
+--- !u!223 &1205107953105355520
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5149737439673790165}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &7408321805048813565
 GameObject:
   m_ObjectHideFlags: 0

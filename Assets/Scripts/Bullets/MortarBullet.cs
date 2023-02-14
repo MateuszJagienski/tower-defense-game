@@ -8,7 +8,7 @@ public class MortarBullet : BulletController
     {
         if (fired == false)
         {
-            Verticall(currentTargetPosition);
+            Verticall(currentDirection);
             fired = true;
         }
     }

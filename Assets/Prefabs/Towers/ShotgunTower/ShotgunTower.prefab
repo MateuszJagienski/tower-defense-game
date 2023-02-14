@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetter: {fileID: 315083948858869221}
-  bulletPrefab: {fileID: 7217429519058709916, guid: 3871164ef75bf3b4e9a1bad7d418d490,
+  bulletPrefab: {fileID: 3226389890031044426, guid: 5757a63254138c84c8ac082a524aa10d,
     type: 3}
   towerUI: {fileID: 0}
   models:

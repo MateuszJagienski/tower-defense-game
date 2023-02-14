@@ -31,7 +31,7 @@ class TackShooterTower : TowerController
             {
                 var degree = (360 / numberOfBullets) * i;
                 rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
-                PrepareBullet(transform.position, rotatedVector, BulletMovementType.Straight);
+                PrepareBullet(transform.position, rotatedVector);
             }
             yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }

@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class TowerPlacement : MonoBehaviour
 {
@@ -60,7 +57,7 @@ public class TowerPlacement : MonoBehaviour
             float x = hit.point.x;
             float z = hit.point.z;
             float y = hit.point.y;
-            ghostTower.transform.position = new Vector3(x, y + 0.5f, z);
+            ghostTower.transform.position = new Vector3(x, y + 0.7f, z);
             ghostTowerRange.transform.position = new Vector3(x, y + 0.5f, z);
             ghostTowerRange.transform.localScale = new Vector3(range * 2, 0.1f, range * 2);
             if (Input.GetButtonDown("Fire1"))
