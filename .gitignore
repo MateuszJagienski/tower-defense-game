@@ -90,3 +90,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Build*
 .plastic/
+.collabignore
+.gitattributes
+.vsconfig
+ignore.conf
+/AurynSky/
+/AurynSky.meta
