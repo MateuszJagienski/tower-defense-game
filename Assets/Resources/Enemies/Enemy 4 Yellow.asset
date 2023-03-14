@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 100
   Speed: 16
-  ID: 4
+  Id: 3
+  NextId: 2
+  NextQuantity: 2

@@ -1,65 +1,61 @@
 using System;
 using UnityEngine;
 
-
-public class PlayerHealth : MonoBehaviour
+namespace Assets.Scripts.Player
 {
-    private int maxHealth = 100;
-    private int currentHealth;
-
-    public event Action PlayerDeath;
-    public int CurrentHealth
+    public class PlayerHealth : MonoBehaviour
     {
-        get { return currentHealth; }
-    }
+        private int maxHealth = 100;
+        private int currentHealth;
 
-    public int MaxHealth 
-    { 
-        get { return maxHealth; }
-    }
+        public event Action PlayerDeath;
+        public int CurrentHealth => currentHealth;
 
-    private static PlayerHealth instance;
+        public int MaxHealth => maxHealth;
 
-    public static PlayerHealth Instance
-    {
-        get
+        private static PlayerHealth _instance;
+
+        public static PlayerHealth Instance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<PlayerHealth>();
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<PlayerHealth>();
+                }
+                return _instance;
             }
-            return instance;
         }
-    }
 
-    void Start()
-    {
-        currentHealth = maxHealth;
-    }
-
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void Heal(int amount)
-    {
-        currentHealth += amount;
-
-        if (currentHealth > maxHealth)
+        void Start()
         {
             currentHealth = maxHealth;
         }
-    }
 
-    void Die()
-    {
-        PlayerDeath();
-       // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        public void Heal(int amount)
+        {
+            currentHealth += amount;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
+
+        void Die()
+        {
+            PlayerDeath();
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

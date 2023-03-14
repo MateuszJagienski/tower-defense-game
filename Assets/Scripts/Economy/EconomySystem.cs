@@ -1,61 +1,54 @@
 using System.Collections;
+using Assets.Scripts.Enemies;
 using UnityEngine;
 
-public class EconomySystem : MonoBehaviour
+namespace Assets.Scripts.Economy
 {
-    private static EconomySystem instance;
-    public static EconomySystem Instance
+    public class EconomySystem : MonoBehaviour
     {
-        get
+        private static EconomySystem _instance;
+        public static EconomySystem Instance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<EconomySystem>();
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<EconomySystem>();
+                }
+                return _instance;
             }
-            return instance;
         }
-    }
-    private int goldPerSecond;
-    public int Gold { get; private set; }
-    void Start()
-    {
-        Gold = 600;
-        goldPerSecond = 20;
-        StartCoroutine(GenerateGold());
-    }
+        private int goldPerSecond;
+        public int Gold { get; private set; }
+        void Start()
+        {
+            Gold = 600;
+            goldPerSecond = 20;
+            StartCoroutine(GenerateGold());
+        }
 
-    IEnumerator GenerateGold()
-    {
-        while (true)
+        IEnumerator GenerateGold()
         {
-            if (WaveManager.Instance.IsRunning)
+            while (true)
             {
-                IncreaseGold(goldPerSecond);
+                IncreaseGold(WaveManager.Instance.IsRunning ? goldPerSecond : 0);
+                yield return new WaitForSeconds(1);
             }
-            else
-            {
-                IncreaseGold(0);
-            }
-            yield return new WaitForSeconds(1);
         }
-    }
-    public void IncreaseGold(int amount)
-    {
-        Gold += amount;
-    }
-    public bool DecreaseGold(int amount)
-    {
-        if (CanAfford(amount))
+        public void IncreaseGold(int amount)
         {
+            Gold += amount;
+        }
+        public bool DecreaseGold(int amount)
+        {
+            if (!CanAfford(amount)) return false;
             Gold -= amount;
             return true;
         }
-        return false;
-    }
 
-    public bool CanAfford(int cost)
-    {
-        if (Gold >= cost) return true;
-        return false;
+        public bool CanAfford(int cost)
+        {
+            return Gold >= cost;
+        }
     }
 }

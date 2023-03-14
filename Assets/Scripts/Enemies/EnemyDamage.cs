@@ -1,21 +1,65 @@
 ﻿using UnityEngine;
 
-public class EnemyDamage : MonoBehaviour
+namespace Assets.Scripts.Enemies
 {
-    [SerializeField]
-    private EnemyController enemy;
-    private void OnTriggerEnter(Collider other)
+    public class EnemyDamage : MonoBehaviour, IDamageable
     {
-        if (other.gameObject.GetComponent<BulletController>() != null)
+        private EnemyController enemyController;
+        private Enemy enemy;
+        private int enemyHp;
+
+        void Awake()
         {
-            Debug.Log("trigger enter");
-            BulletController bulletController = other.gameObject.GetComponent<BulletController>();
-            bulletController.EnemyHit();
-            Bullet bullet = other.gameObject.GetComponent<Bullet>();
+            enemy = GetComponent<Enemy>();
+        }
+
+        void OnEnable()
+        {
+
+            enemyHp = enemy.Hp;
+        }
+
+        public void TakeDamage(EnemyController enemyController)
+        {
+
+            if (enemy.Id == 0) enemyController.Kill(); // error
+
+            //  enemyHp -= damage;
+
+            if (enemy.NextQuantity > 1)
+            {
+                Debug.Log("NextQuantity > 1");
+                enemyController.SpawnChildren();
+            }
+            enemyController.ActivateEnemyById(enemy.NextId);
+            // Debug.Log($"EnemyDamage: " + damage);
+
+        }
+
+        public void TakeDamage(int damage)
+        {        
+            enemyController = GetComponentInParent<EnemyController>();
+            Debug.Log("inside enemyDamage");
+
+            if (enemy.Id == 0) enemyController.Kill(); // error
+            
+            //  enemyHp -= damage;
+
+            if (enemy.NextQuantity > 1)
+            {
+                Debug.Log("NextQuantity > 1");
+                enemyController.SpawnChildren();
+            }
+            enemyController.ActivateEnemyById(enemy.NextId);
+            // Debug.Log($"EnemyDamage: " + damage);
+
+        }
 
 
-            enemy.TakeDamage(1);
-            bullet.TakeDamage(1);
+
+        private void OnDestroy()
+        {
+
         }
     }
 }

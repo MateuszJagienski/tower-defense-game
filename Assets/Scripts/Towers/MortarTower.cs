@@ -1,42 +1,45 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class MortarTower : TowerController
+namespace Assets.Scripts.Towers
 {
-    private int numberOfBullets = 8;
-
-    private void Update()
+    public class MortarTower : TowerController
     {
-        RemoveInactiveTargets();
+        private int numberOfBullets = 8;
 
-        if (targetter.GetTargets().Count > 0 && !isAtacking)
+        private void Update()
         {
-            isAtacking = true;
-            AttackEnemy();
+            RemoveInactiveTargets();
+
+            if (Targetter.GetTargets().Count > 0 && !IsAtacking)
+            {
+                IsAtacking = true;
+                AttackEnemy();
+            }
         }
-    }
 
-    private void AttackEnemy()
-    {
-        StartCoroutine(FireBullet());
-    }
-
-    IEnumerator FireBullet()
-    {
-        while (targetter.GetTargets().Count > 0)
+        private void AttackEnemy()
         {
-            var target = FixedTarget();
-            Debug.Log(target);
-            Debug.Log("inside fire blt, mort");
-         //   PrepareBullet(transform.position, FixedTarget(), BulletMovementType.VerticallyLaunched);
-
-            yield return new WaitForSeconds(1 / tower.AttackSpeed);
+            StartCoroutine(FireBullet());
         }
-        isAtacking = false;
-    }
 
-    private Vector3 FixedTarget()
-    {
-        return new Vector3(-3.25f, 0.25f, -7.5f);
+        IEnumerator FireBullet()
+        {
+            while (Targetter.GetTargets().Count > 0)
+            {
+                var target = FixedTarget();
+                Debug.Log(target);
+                Debug.Log("inside fire blt, mort");
+                //   PrepareBullet(transform.position, FixedTarget(), BulletMovementType.VerticallyLaunched);
+
+                yield return new WaitForSeconds(1 / Tower.AttackSpeed);
+            }
+            IsAtacking = false;
+        }
+
+        private Vector3 FixedTarget()
+        {
+            return new Vector3(-3.25f, 0.25f, -7.5f);
+        }
     }
 }

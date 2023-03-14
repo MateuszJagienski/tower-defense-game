@@ -1,14 +1,17 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Bullet Data", menuName = "Create Bullet Data")]
-public class BulletData : ScriptableObject
+namespace Assets.Scripts.Bullets
 {
-    public int[] InitialDamage;
-    public int[] Speed;
-    public int[] Range;
-    public int[] SplashRange;
-    public int[] SplashDamage;
+    [CreateAssetMenu(fileName = "New Bullet Data", menuName = "Create Bullet Data")]
+    public class BulletData : ScriptableObject
+    {
+        public int[] InitialDamage;
+        public int[] Speed;
+        public int[] Range;
+        public int[] SplashRange;
+        public int[] SplashDamage;
 
-    public int ID;
+        public int Id;
 
+    }
 }

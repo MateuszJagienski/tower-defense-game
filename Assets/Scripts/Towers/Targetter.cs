@@ -1,41 +1,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Targetter : MonoBehaviour
+namespace Assets.Scripts.Towers
 {
-    [SerializeField]
-    private List<GameObject> targets = new List<GameObject>();
-    [SerializeField]
-    private Tower tower;
-
-    public void SetRange(float radius)
+    public class Targetter : MonoBehaviour
     {
-        GetComponent<SphereCollider>().radius = radius;
-    }
+        [SerializeField]
+        private List<GameObject> targets = new List<GameObject>();
+        [SerializeField]
+        private Tower tower;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        targets.Add(other.gameObject);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (targets.Contains(other.gameObject))
+        public void SetRange(float radius)
         {
-            targets.Remove(other.gameObject);
+            GetComponent<SphereCollider>().radius = radius;
         }
-    }
 
-    public List<GameObject> GetTargets()
-    {
-        return targets;
-    }
-
-    public void RemoveTarget(GameObject targetToRemove)
-    {
-        if (targets.Contains(targetToRemove))
+        private void OnTriggerEnter(Collider other)
         {
-            targets.Remove(targetToRemove);
+            targets.Add(other.gameObject);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (targets.Contains(other.gameObject))
+            {
+                targets.Remove(other.gameObject);
+            }
+        }
+
+        public List<GameObject> GetTargets()
+        {
+            return targets;
+        }
+
+        public void RemoveTarget(GameObject targetToRemove)
+        {
+            if (targets.Contains(targetToRemove))
+            {
+                targets.Remove(targetToRemove);
+            }
         }
     }
 }

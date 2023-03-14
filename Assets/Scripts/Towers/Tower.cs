@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+namespace Assets.Scripts.Towers
 {
-    public String TowerName { get => towerData.TowerName; }
-    public int PurchaseCost { get => towerData.PurchaseCost; }
-    public int SellCost { get => towerData.SellCost + 100 * TowerLvl; }
-    public float Range { get => towerData.Range[TowerLvl]; }
-    public float AttackSpeed { get => towerData.AttackSpeed[TowerLvl]; }
-    public int UpgradeCost { get => towerData.UpgradeCost[TowerLvl]; }
-    public int ID { get => towerData.ID; }
+    public class Tower : MonoBehaviour
+    {
+        public String TowerName => towerData.TowerName;
+        public int PurchaseCost => towerData.PurchaseCost;
+        public int SellCost => towerData.SellCost + 100 * TowerLvl;
+        public float Range => towerData.Range[TowerLvl];
+        public float AttackSpeed => towerData.AttackSpeed[TowerLvl];
+        public int UpgradeCost => towerData.UpgradeCost[TowerLvl];
+        public int Id => towerData.Id;
 
-    public int TowerLvl = 0;
-    [SerializeField]
-    private TowerData towerData;
+        public int TowerLvl = 0;
+        [SerializeField]
+        private TowerData towerData;
+    }
 }

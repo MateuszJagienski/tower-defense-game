@@ -1,40 +1,40 @@
 ﻿using System.Collections;
-
 using UnityEngine;
 
-class TackShooterTower : TowerController
+namespace Assets.Scripts.Towers
 {
-    private int numberOfBullets = 8;
-
-    private void Update()
+    class TackShooterTower : TowerController
     {
-        RemoveInactiveTargets();
+        private int numberOfBullets = 8;
 
-        if (targetter.GetTargets().Count > 0 && !isAtacking)
+        private void Update()
         {
-            isAtacking = true;
+            RemoveInactiveTargets();
+
+            if (Targetter.GetTargets().Count <= 0 || IsAtacking) return;
+            IsAtacking = true;
             AttackEnemy();
         }
-    }
 
-    private void AttackEnemy()
-    {
-        StartCoroutine(FireBullet());
-    }
-
-    IEnumerator FireBullet()
-    {
-        while (targetter.GetTargets().Count > 0)
+        private void AttackEnemy()
         {
-            Vector3 rotatedVector = transform.forward;
-            for (int i = 0; i < numberOfBullets; i++)
-            {
-                var degree = (360 / numberOfBullets) * i;
-                rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
-                PrepareBullet(transform.position, rotatedVector);
-            }
-            yield return new WaitForSeconds(1 / tower.AttackSpeed);
+            StartCoroutine(FireBullet());
         }
-        isAtacking = false;
+
+        IEnumerator FireBullet()
+        {
+            while (Targetter.GetTargets().Count > 0)
+            {
+                var rotatedVector = transform.forward;
+                for (var i = 0; i < numberOfBullets; i++)
+                {
+                    var degree = (360 / numberOfBullets) * i;
+                    rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
+                    PrepareBullet(transform.position, rotatedVector);
+                }
+                yield return new WaitForSeconds(1 / Tower.AttackSpeed);
+            }
+            IsAtacking = false;
+        }
     }
 }

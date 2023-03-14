@@ -1,13 +1,17 @@
+using Assets.Scripts.Enemies;
 using UnityEngine;
 
-public class DamagePlayer : MonoBehaviour
+namespace Assets.Scripts.Player
 {
-    private void OnTriggerEnter(Collider other)
+    public class DamagePlayer : MonoBehaviour
     {
-        if (other.gameObject.GetComponent<Enemy>() != null)
+        private void OnTriggerEnter(Collider other)
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            PlayerHealth.Instance.TakeDamage((int) enemy.Hp);
+            if (other.gameObject.GetComponent<Enemy>() != null)
+            {
+                var enemy = other.gameObject.GetComponent<Enemy>();
+                PlayerHealth.Instance.TakeDamage((int) enemy.Hp);
+            }
         }
     }
 }

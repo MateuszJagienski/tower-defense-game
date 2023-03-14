@@ -1,6 +1,9 @@
-﻿public enum BulletMovementType
+﻿namespace Assets.Scripts.Bullets
 {
-    Follow,
-    Straight,
-    VerticallyLaunched
+    public enum BulletMovementType
+    {
+        Follow,
+        Straight,
+        VerticallyLaunched
+    }
 }

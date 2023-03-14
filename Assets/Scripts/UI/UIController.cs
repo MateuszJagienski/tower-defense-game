@@ -1,34 +1,40 @@
 using System.Collections;
+using Assets.Scripts.Economy;
+using Assets.Scripts.Enemies;
+using Assets.Scripts.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField]
-    private Text goldText;
-    [SerializeField]
-    private Text livesText;
-    [SerializeField]
-    private Text waveText;
-
-    private void Start()
+    public class UIController : MonoBehaviour
     {
-        StartCoroutine(CheckForUiChanges());
-    }
+        [SerializeField]
+        private Text goldText;
+        [SerializeField]
+        private Text livesText;
+        [SerializeField]
+        private Text waveText;
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    IEnumerator CheckForUiChanges()
-    {
-        while (true)
+        private void Start()
         {
-            goldText.text = $"Gold: {EconomySystem.Instance.Gold}";
-            livesText.text = $"Lives: {PlayerHealth.Instance.CurrentHealth}/{PlayerHealth.Instance.MaxHealth}";
-            waveText.text = $"Wave: {WaveManager.Instance.GetCurrentWave()}";
-            yield return new WaitForSeconds(1);
+            StartCoroutine(CheckForUiChanges());
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        }
+
+        IEnumerator CheckForUiChanges()
+        {
+            while (true)
+            {
+                goldText.text = $"Gold: {EconomySystem.Instance.Gold}";
+                livesText.text = $"Lives: {PlayerHealth.Instance.CurrentHealth}/{PlayerHealth.Instance.MaxHealth}";
+                waveText.text = $"Wave: {WaveManager.Instance.GetCurrentWave()}";
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 }

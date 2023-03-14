@@ -136,15 +136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080a2d207893c994ab79128380b64684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetter: {fileID: 8694005692382406163}
+  Targetter: {fileID: 8694005692382406163}
   bulletPrefab: {fileID: 3226389890031044426, guid: 5757a63254138c84c8ac082a524aa10d,
     type: 3}
-  towerUI: {fileID: 7217429519058709916, guid: 3871164ef75bf3b4e9a1bad7d418d490, type: 3}
+  towerUi: {fileID: 0}
   models:
   - {fileID: 8334284454566655189}
   - {fileID: 6214884526155702343}
   - {fileID: 4181219620918707099}
-  currentTarget: {fileID: 0}
+  CurrentTarget: {fileID: 0}
 --- !u!1 &7631066622171395323
 GameObject:
   m_ObjectHideFlags: 0

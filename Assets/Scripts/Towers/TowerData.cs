@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Object Data", menuName = "Data/TowerData")]
-public class TowerData : ScriptableObject
+namespace Assets.Scripts.Towers
 {
-    public string TowerName;
-    public float[] Range;
-    public float[] AttackSpeed;
-    public int[] UpgradeCost;
-    public int PurchaseCost;
-    public int SellCost;
-    public int ID;
+    [CreateAssetMenu(fileName = "Object Data", menuName = "Data/TowerData")]
+    public class TowerData : ScriptableObject
+    {
+        public string TowerName;
+        public float[] Range;
+        public float[] AttackSpeed;
+        public int[] UpgradeCost;
+        public int PurchaseCost;
+        public int SellCost;
+        public int Id;
+    }
 }
 

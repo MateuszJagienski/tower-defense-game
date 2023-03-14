@@ -1,104 +1,159 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Assets.Scripts.Bullets;
+using Assets.Scripts.Economy;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+namespace Assets.Scripts.Enemies
 {
-    private int hp;
-    private Dictionary<int, Enemy> enemies;
-    [SerializeField]
-    private List<Enemy> enemiesModels;
-    private int currentActiveEnemyID;
-    public Enemy CurrentActiveEnemy { get => enemiesModels[currentActiveEnemyID]; }
-    private Enemy currentActiveModel;
-    public int CurrentWaypointIndex { get; set; }
-    void Start()
+    public class EnemyController : MonoBehaviour
     {
-        enemies = FindObjectOfType<EnemyPrefabs>().GetEnemyPrefabs();
-    }
+        public static event Action<EnemyController> OnEnemyDamaged;
 
-    public void TakeDamage(int damage)
-    {
-        hp -= damage;
-        if (currentActiveEnemyID == 0) Kill();
-        else ActivateEnemyById(--currentActiveEnemyID);
-    }
-    
-    public void ChangePrefab()
-    {
-        var newPrefab = enemies[currentActiveEnemyID - 1];
-        if (newPrefab.Hp >= hp)
+        private int hp;
+        [SerializeField]
+        private List<Enemy> enemiesModels;
+        private int currentActiveEnemyId;
+        // current used enemy, used for access data not model
+        public Enemy CurrentActiveEnemy => enemiesModels[currentActiveEnemyId];
+        private Enemy currentActiveModel;
+        public int CurrentWaypointIndex { get; set; }
+        private EnemySpawner enemySpawner;
+
+        private Collider colliderBullet;
+
+        private void Start()
         {
-            newPrefab = Instantiate(newPrefab, transform.position, Quaternion.identity);
-            //  newPrefab.transform.parent = transform.parent;
-         //   newPrefab.CurrentWaypointIndex = CurrentWaypointIndex;
+            enemySpawner = EnemySpawner.Instance;
+        }
+
+        public void SpawnChildren()
+        {
+            var index = CurrentWaypointIndex;
+            var enemyMovement = GetComponent<EnemyMovement>();
+            var path = enemyMovement.Path;
+            var prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
+            var spawnDirection = (prevWaypoint - transform.position).normalized;
+            var spawnPosition = transform.position + spawnDirection;
+            Debug.Log($"Dir1: {spawnDirection} prevWaypoint: {prevWaypoint} transform.pos: {transform.position} currentWaypointIndex: {CurrentWaypointIndex} currentWaypointPos: {enemyMovement.GetCurrentWaypoint(index)}");
+            for (var i = 0; i < currentActiveModel.NextQuantity; i++)
+            {
+                // check if enemy reached waypoint
+                if (WaypointReached(index, prevWaypoint, spawnPosition, spawnDirection.magnitude))
+                {
+                    // change spawning direction
+                    var waypoint = prevWaypoint;
+                    prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
+                    spawnDirection = (prevWaypoint - waypoint).normalized;
+                    spawnPosition = waypoint;
+                }
+                spawnPosition.y = transform.position.y;
+                SpawnSingleEnemy(path, index, spawnPosition);
+                spawnPosition += spawnDirection;
+            }
+        }
+
+        private EnemyController SpawnSingleEnemy(int path, int index, Vector3 spawnPosition)
+        {
+            var childEnemy = enemySpawner.SpawnEnemy(currentActiveModel.NextId, spawnPosition);
+            Physics.IgnoreCollision(colliderBullet, childEnemy.GetComponent<Collider>());
+            childEnemy.CurrentWaypointIndex = index + 1;
+            childEnemy.GetComponent<EnemyMovement>().Path = path;
+            return childEnemy;
+        }
+
+        private bool WaypointReached(int index, Vector3 waypoint, Vector3 spawnPosition, float range)
+        {
+            return index > 0 && Vector3.Distance(waypoint, spawnPosition) <= range;
+        }
+
+        private void OnDisable()
+        {
+            transform.localScale = Vector3.one;
+            CurrentWaypointIndex = 0;
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log($"Enemy controller OnDestroy: {this}");
+        }
+
+        public void DeactivateEnemy()
+        {
+            //  ObjectPool.Add(currentActiveModel.ID, currentActiveModel.gameObject);
+            enemySpawner.Release(this);
+
+        }
+
+        public void Kill()
+        {
+            EconomySystem.Instance.IncreaseGold(1);
             DeactivateEnemy();
         }
-    }
 
-    public void DeactivateEnemy()
-    {
-        gameObject.SetActive(false);
-        Destroy(gameObject, 5);
-    }
-
-    public void Kill()
-    {
-        EconomySystem.Instance.IncreaseGold(1);
-        DeactivateEnemy();
-    }
-
-    public EnemyController ActivateEnemyById(int id)
-    {
-        currentActiveEnemyID = id;
-        if (currentActiveModel != null)
+        public EnemyController ActivateEnemyById(int id)
         {
-            Destroy(currentActiveModel.gameObject);
-        }
-        currentActiveModel = Instantiate(enemiesModels[currentActiveEnemyID], transform.position, Quaternion.identity);
-        currentActiveModel.gameObject.SetActive(true);
-        currentActiveModel.transform.parent = transform;
-
-/*        foreach (Enemy enemy in enemiesModels)
-        {
-            if (enemy.ID == currentActiveEnemyID)
+            currentActiveEnemyId = id;
+            if (currentActiveModel != null)
             {
-                enemy.gameObject.SetActive(true);
+                ObjectPool.Add(currentActiveModel.Id, currentActiveModel.gameObject);
+            }
+            Debug.Log("curId: " + currentActiveEnemyId);
+            var enemy = ObjectPool.Get(currentActiveEnemyId);
+            Debug.Log("enemy pool: " + (enemy == null));
+            PlaceEnemy(enemy);
+
+            return this;
+        }
+
+        private void PlaceEnemy(GameObject enemy)
+        {
+            if (enemy == null)
+            {
+                currentActiveModel = Instantiate(enemiesModels[currentActiveEnemyId], transform.position, Quaternion.identity);
+                currentActiveModel.gameObject.SetActive(true);
+                currentActiveModel.transform.parent = transform;
             }
             else
             {
-                enemy.gameObject.SetActive(false);
+                enemy.TryGetComponent(out currentActiveModel);
+                currentActiveModel.transform.position = transform.position;
+                currentActiveModel.gameObject.SetActive(true);
+                currentActiveModel.transform.parent = transform;
             }
-        }*/
-        //hp = enemies[currentActiveEnemyID].Hp;
-        return this;
-    }
+        }
 
-    [ContextMenu("Autofill models")]
-    void AutofillModels()
-    {
-        // 
-        enemiesModels = Resources.LoadAll("Models/Enemies", typeof(Enemy))
-            .Cast<Enemy>()
-            .OrderBy(x => x.ID)
-            .ToList();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<BulletController>() != null)
+        [ContextMenu("Auto fill models")]
+        void AutofillModels()
         {
-            Debug.Log("trigger enter");
-            BulletController bulletController = other.gameObject.GetComponent<BulletController>();
-            bulletController.EnemyHit();
-            Bullet bullet = other.gameObject.GetComponent<Bullet>();
+            enemiesModels = Resources.LoadAll("Models/Enemies", typeof(Enemy))
+                .Cast<Enemy>()
+                .OrderBy(x => x.Id)
+                .ToList();
+        }
 
-            var bulletTakenDamge = Math.Min(bullet.Damage, hp);
-            TakeDamage(bullet.Damage);
-            bullet.TakeDamage(bulletTakenDamge);
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.GetComponent<BulletController>() == null) return;
+            Debug.Log("Trigger enter:");
+            var bulletController = other.gameObject.GetComponent<BulletController>();
+            bulletController.EnemyHit();
+            colliderBullet = bulletController.gameObject.GetComponent<Collider>();
+            var bullet = other.gameObject.GetComponent<Bullet>();
+
+            var bulletTakenDamage = Math.Min(bullet.Damage, hp);
+            OnEnemyDamaged?.Invoke(this);
+            currentActiveModel.GetComponent<IDamageable>().TakeDamage(1);
+
+            bullet.TakeDamage(2);
+        }
+
+        public void CallTakeDamage()
+        {
+            currentActiveModel.GetComponent<IDamageable>().TakeDamage(1);
         }
     }
 }

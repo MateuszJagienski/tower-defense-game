@@ -1,7 +1,10 @@
-﻿public class BasicBullet : BulletController
+﻿namespace Assets.Scripts.Bullets
 {
-    void Update()
+    public class BasicBullet : BulletController
     {
-        Attack();
+        void Update()
+        {
+            Attack();
+        }
     }
 }

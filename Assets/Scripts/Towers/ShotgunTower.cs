@@ -1,45 +1,48 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ShotgunTower : TowerController
+namespace Assets.Scripts.Towers
 {
-    private int numberOfBullets = 6;
-
-    private void Update()
+    public class ShotgunTower : TowerController
     {
-        RemoveInactiveTargets();
+        private int numberOfBullets = 6;
 
-        if (targetter.GetTargets().Count > 0 && !isAtacking)
+        private void Update()
         {
-            isAtacking = true;
-            AttackEnemy();
-        }
-    }
+            RemoveInactiveTargets();
 
-    private void AttackEnemy()
-    {
-        StartCoroutine(FireBullet());
-    }
-
-    IEnumerator FireBullet()
-    {
-        while (targetter.GetTargets().Count > 0)
-        {
-            FindTarget(attackType);
-            //Vector3 rotatedVector = currentTarget.transform.position - transform.position;
-            for (int i = 0; i < numberOfBullets; i++)
+            if (Targetter.GetTargets().Count > 0 && !IsAtacking)
             {
-                Vector3 rotatedVector = currentTarget.transform.position - transform.position;
-
-                var degree = -15;
-                // calculate angle between bullets, 
-                degree += 5 * (i + 1);
-
-                rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
-                PrepareBullet(transform.position, rotatedVector);
+                IsAtacking = true;
+                AttackEnemy();
             }
-            yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }
-        isAtacking = false;
+
+        private void AttackEnemy()
+        {
+            StartCoroutine(FireBullet());
+        }
+
+        IEnumerator FireBullet()
+        {
+            while (Targetter.GetTargets().Count > 0)
+            {
+                FindTarget(AttackType);
+                //Vector3 rotatedVector = currentTarget.transform.position - transform.position;
+                for (var i = 0; i < numberOfBullets; i++)
+                {
+                    var rotatedVector = CurrentTarget.transform.position - transform.position;
+
+                    var degree = -15;
+                    // calculate angle between bullets, 
+                    degree += 5 * (i + 1);
+
+                    rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
+                    PrepareBullet(transform.position, rotatedVector);
+                }
+                yield return new WaitForSeconds(1 / Tower.AttackSpeed);
+            }
+            IsAtacking = false;
+        }
     }
 }

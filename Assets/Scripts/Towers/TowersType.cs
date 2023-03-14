@@ -1,7 +1,10 @@
-﻿public enum TowersType
+﻿namespace Assets.Scripts.Towers
 {
-    Basic = 1,
-    TackShooter = 2,
-    Shotgun = 3,
-    Mortar = 4
+    public enum TowersType
+    {
+        Basic = 1,
+        TackShooter = 2,
+        Shotgun = 3,
+        Mortar = 4
+    }
 }

@@ -1,43 +1,47 @@
 ﻿using System.Collections;
+using Assets.Scripts.Bullets;
 using UnityEngine;
 
-public class BasicTower : TowerController
+namespace Assets.Scripts.Towers
 {
-    private void Update()
+    public class BasicTower : TowerController
     {
-        base.Update();
-        RemoveInactiveTargets();
-
-        if (targetter.GetTargets().Count > 0 && !isAtacking)
+        private void Update()
         {
-            isAtacking = true;
-            AttackEnemy();
-        }
-    }
+            base.Update();
+            RemoveInactiveTargets();
 
-    private void AttackEnemy()
-    {
-        StartCoroutine(FireBullet());
-    }
-
-    IEnumerator FireBullet()
-    {
-        while (targetter.GetTargets().Count > 0)
-        {
-            FindTarget(attackType);
-            if (currentTarget == null)
+            if (Targetter.GetTargets().Count > 0 && !IsAtacking)
             {
-                yield return new WaitForSeconds(1 / tower.AttackSpeed);
-            } else
-            {
-                var direction = currentTarget.transform.position - transform.position;
-                //PrepareBullet(transform.position, direction, BulletMovementType.Straight);
-                //PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Straight); // for follow type, fix it later
-                PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Follow); // for follow type, fix it later
+                IsAtacking = true;
+                AttackEnemy();
             }
-            yield return new WaitForSeconds(1 / tower.AttackSpeed);
         }
-        isAtacking = false;
+
+        private void AttackEnemy()
+        {
+            StartCoroutine(FireBullet());
+        }
+
+        IEnumerator FireBullet()
+        {
+            while (Targetter.GetTargets().Count > 0)
+            {
+                FindTarget(AttackType);
+                if (CurrentTarget == null)
+                {
+                    yield return new WaitForSeconds(1 / Tower.AttackSpeed);
+                } else
+                {
+                    var direction = CurrentTarget.transform.position - transform.position;
+                    //PrepareBullet(transform.position, direction, BulletMovementType.Straight);
+                    //PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Straight); // for follow type, fix it later
+                    PrepareBullet(transform.position, CurrentTarget.transform, BulletMovementType.Follow); // for follow type, fix it later
+                }
+                yield return new WaitForSeconds(1 / Tower.AttackSpeed);
+            }
+            IsAtacking = false;
+        }
     }
 }
 

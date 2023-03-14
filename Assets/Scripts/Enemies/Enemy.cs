@@ -1,12 +1,15 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace Assets.Scripts.Enemies
 {
-    public int Hp { get => enemyData.Hp; }
-    public int ID { get => enemyData.ID; }
-    public float Speed { get => enemyData.Speed; }
+    public class Enemy : MonoBehaviour
+    {
+        public int Hp => EnemyData.Hp;
+        public int Id => EnemyData.Id;
+        public float Speed => EnemyData.Speed;
+        public int NextId => EnemyData.NextId;
+        public int NextQuantity => EnemyData.NextQuantity;
 
-    public EnemyData enemyData;
+        public EnemyData EnemyData;
+    }
 }

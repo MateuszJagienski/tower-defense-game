@@ -1,7 +1,10 @@
-﻿public enum AttackType
+﻿namespace Assets.Scripts.Towers
 {
-    First,
-    Last,
-    Strong,
-    Close
+    public enum AttackType
+    {
+        First,
+        Last,
+        Strong,
+        Close
+    }
 }

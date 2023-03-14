@@ -1,12 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Enemy Data", menuName = "Create Enemy Data")]
-public class EnemyData : ScriptableObject
+namespace Assets.Scripts.Enemies
 {
-    public int Hp;
-    public int Speed;
-    public int ID;
+    [CreateAssetMenu(fileName = "New Enemy Data", menuName = "Create Enemy Data")]
+    public class EnemyData : ScriptableObject
+    {
+        public int Hp;
+        public int Speed;
+        public int Id;
+        public int NextId;
+        public int NextQuantity;
+    }
 }
+
 /*
 Red - sp 5 // rbe 1
 Blue - sp 7 // rbe 2

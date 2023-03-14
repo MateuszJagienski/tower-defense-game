@@ -2,105 +2,118 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
-public class WaveManager : MonoBehaviour
+namespace Assets.Scripts.Enemies
 {
-    private int maxNumberOfWaves;
-    private int currentWave;
-    public bool IsRunning { get; private set; }
-    public List<WaveData> waves;
-    public Text startText;
-
-    public event Action GameWon;
-
-
-    private static WaveManager instance;
-    public static WaveManager Instance
+    public class WaveManager : MonoBehaviour
     {
-        get
+        private int maxNumberOfWaves;
+        private int currentWave;
+        public bool IsRunning { get; private set; }
+        public List<WaveData> Waves;
+        public Text StartText;
+
+        public event Action GameWon;
+
+
+        private static WaveManager _instance;
+        public static WaveManager Instance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<WaveManager>();
-            }
-            return instance;
-        }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        maxNumberOfWaves = waves.Count;
-        currentWave = 0;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Space) && !IsRunning && currentWave < maxNumberOfWaves)
-        {
-            SpawnEnemies();
-            IsRunning = true;
-            startText.enabled = false;
-        }
-        if (currentWave >= maxNumberOfWaves && !IsRunning)
-        {
-            GameWon();
-        }
-    }
-
-    private List<PartWave> GetWaveList(int waveIndex)
-    {
-        return waves[waveIndex].PartWave;
-    }
-    void SpawnEnemies()
-    {
-        StartCoroutine(InstantiateEnemies());
-    }
-    IEnumerator InstantiateEnemies()
-    {
-        var wave = GetWaveList(currentWave);
-        foreach (var part in wave)
-        {
-            for (int i = 0; i < part.quantity; i++)
-            {
-                if (part.enemyID > 0)
+                if (_instance == null)
                 {
-                    EnemySpawner.Instance.SpawnEnemy(part.enemyID);
+                    _instance = FindObjectOfType<WaveManager>();
                 }
-                yield return new WaitForSeconds(part.timeBetweenSpawn);
+                return _instance;
             }
-
         }
-        while (FindObjectOfType<Enemy>() != null)
+        // Start is called before the first frame update
+        void Start()
         {
-            yield return new WaitForSeconds(2);
+            maxNumberOfWaves = Waves.Count;
+            currentWave = 0;
         }
-        IsRunning = false;
-        currentWave++;
-    }
-    public void SkipWave()
-    {
-        currentWave++;
-    }
-    private void EndGame()
-    {
-        SceneManager.LoadScene("EndScene", LoadSceneMode.Single);
-    }
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKey(KeyCode.Space) && !IsRunning && currentWave < maxNumberOfWaves)
+            {
+                SpawnEnemies();
+                IsRunning = true;
+                StartText.enabled = false;
+            }
+            if (currentWave >= maxNumberOfWaves && !IsRunning)
+            {
+                GameWon?.Invoke();
+            }
+        }
 
-    public int GetCurrentWave()
-    {
-        return currentWave + 1;
-    }
+        private List<PartWave> GetWaveList(int waveIndex)
+        {
+            return Waves[waveIndex].PartWave;
+        }
+        void SpawnEnemies()
+        {
+            StartCoroutine(InstantiateEnemies());
+        }
+        IEnumerator InstantiateEnemies()
+        {
+            var wave = GetWaveList(currentWave);
+            foreach (var part in wave)
+            {
+                for (var i = 0; i < part.Quantity; i++)
+                {   
+                    if (part.EnemyId == 999)
+                    {
+                        var rand = Random.Range(0f, 7f);
+                        EnemySpawner.Instance.SpawnEnemy((int) rand);
+                    }
+                    else if (part.EnemyId > 0)
+                    {
+                        EnemySpawner.Instance.SpawnEnemy(part.EnemyId);
+                    }
+                    yield return new WaitForSeconds(part.TimeBetweenSpawn);
+                }
 
-    [ContextMenu("Fill Waves")]
-    void FillWaves()
-    {
-        waves = Resources.LoadAll("waves", typeof(WaveData))
-            .Cast<WaveData>()
-            .ToList();
+            }
+            while (FindObjectOfType<Enemy>() != null)
+            {
+                yield return new WaitForSeconds(2);
+            }
+            IsRunning = false;
+            currentWave++;
+        }
+
+        private void SpawnRandomEnemies(int count)
+        {
+
+        }
+
+        public void SkipWave()
+        {
+            currentWave++;
+        }
+        private void EndGame()
+        {
+            SceneManager.LoadScene("EndScene", LoadSceneMode.Single);
+        }
+
+        public int GetCurrentWave()
+        {
+            return currentWave + 1;
+        }
+
+        [ContextMenu("Fill Waves")]
+        void FillWaves()
+        {
+            Waves = Resources.LoadAll("waves", typeof(WaveData))
+                .Cast<WaveData>()
+                .ToList();
+        }
     }
 }
