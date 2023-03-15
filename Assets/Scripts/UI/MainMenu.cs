@@ -12,7 +12,7 @@ namespace Assets.Scripts.UI
 
         public void StartGame()
         {
-            SceneManager.LoadScene("Scene03", LoadSceneMode.Single);
+            SceneManager.LoadScene("Scene01", LoadSceneMode.Single);
         }
 
         public void CloseGame()

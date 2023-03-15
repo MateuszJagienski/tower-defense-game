@@ -86,14 +86,21 @@ namespace Assets.Scripts.Towers
         public void FindTarget(AttackType attackType)
         {
             var targets = Targetter.GetTargets();
-            CurrentTarget = attackType switch
+            switch (attackType)
             {
-                AttackType.First => FindFirstEnemy(targets),
-                AttackType.Last => FindLastEnemy(targets),
-                AttackType.Strong => FindStrongestEnemy(targets),
-                AttackType.Close => FindClosestEnemy(targets),
-                _ => CurrentTarget
-            };
+                case AttackType.First:
+                    CurrentTarget = FindFirstEnemy(targets);
+                    break;
+                case AttackType.Last:
+                    CurrentTarget = FindLastEnemy(targets);
+                    break;
+                case AttackType.Strong:
+                    CurrentTarget = FindStrongestEnemy(targets);
+                    break;
+                case AttackType.Close:
+                    CurrentTarget = FindClosestEnemy(targets);
+                    break;
+            }
         }
 
         public GameObject FindClosestEnemy(List<GameObject> enemies)

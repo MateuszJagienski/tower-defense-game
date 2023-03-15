@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using Unity.Netcode;
 
 namespace Assets.Scripts.Enemies
 {
-    public class EnemySpawner : NetworkBehaviour
+    public class EnemySpawner : MonoBehaviour
     {
         [SerializeField]
         private EnemyController enemyController;
@@ -41,37 +40,14 @@ namespace Assets.Scripts.Enemies
 
         public void SpawnEnemy(int enemyId)
         {
-            SpawnServerRpc();
-/*          EnemyController en;
-            pool.Get(out en);
-            var spawn = en.GetComponent<EnemyMovement>().GetCurrentWaypoint(en.CurrentWaypointIndex);
-            en.transform.position = spawn;
-            en.ActivateEnemyById(enemyId);*/
-            //var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);
-            //enemy.ActivateEnemyById(enemyID);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void SpawnServerRpc()
-        {
-            SpawnClientRpc();
-        }
-
-        [ClientRpc]
-        private void SpawnClientRpc()
-        {
-            Spawner(5);
-        }
-
-        private void Spawner(int enemyId)
-        {
             EnemyController en;
             pool.Get(out en);
             var spawn = en.GetComponent<EnemyMovement>().GetCurrentWaypoint(en.CurrentWaypointIndex);
             en.transform.position = spawn;
             en.ActivateEnemyById(enemyId);
+            //var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);
+            //enemy.ActivateEnemyById(enemyID);
         }
-
         public EnemyController SpawnEnemy(int enemyId, Vector3 spawnPosition)
         {
             EnemyController en;

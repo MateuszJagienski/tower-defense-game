@@ -8,6 +8,9 @@ namespace Assets.Scripts.Enemies
         private EnemyController enemyController;
         private List<SingleWaypoints> waypoints;
         private int path;
+        /// <summary>
+        /// Responsible for equally distributed paths for enemies.
+        /// </summary>
         private static int _staticPath = 0;
         public int Path { get => path; set => path = value; }
         void Awake()
@@ -30,7 +33,9 @@ namespace Assets.Scripts.Enemies
             }
         
         }
-    
+        /// <summary>
+        /// Moves the enemy towards the next waypoint based on the current waypoint index and path.
+        /// </summary>
         void MoveTowardsWaypoints()
         {
             var currentWaypoint = waypoints[path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;

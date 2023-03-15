@@ -42,7 +42,7 @@ namespace Assets.Scripts.Enemies
             Debug.Log("inside enemyDamage");
 
             if (enemy.Id == 0) enemyController.Kill(); // error
-            
+
             //  enemyHp -= damage;
 
             if (enemy.NextQuantity > 1)
