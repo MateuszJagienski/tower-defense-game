@@ -11,7 +11,7 @@ namespace Assets.Scripts.Towers
         {
             RemoveInactiveTargets();
 
-            if (Targetter.GetTargets().Count > 0 && !IsAtacking)
+            if (Targetter.Targets.Count > 0 && !IsAtacking)
             {
                 IsAtacking = true;
                 AttackEnemy();
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Towers
 
         IEnumerator FireBullet()
         {
-            while (Targetter.GetTargets().Count > 0)
+            while (Targetter.Targets.Count > 0)
             {
                 FindTarget(AttackType);
                 //Vector3 rotatedVector = currentTarget.transform.position - transform.position;

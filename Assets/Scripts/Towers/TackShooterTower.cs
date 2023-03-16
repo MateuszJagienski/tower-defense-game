@@ -11,7 +11,7 @@ namespace Assets.Scripts.Towers
         {
             RemoveInactiveTargets();
 
-            if (Targetter.GetTargets().Count <= 0 || IsAtacking) return;
+            if (Targetter.Targets.Count <= 0 || IsAtacking) return;
             IsAtacking = true;
             AttackEnemy();
         }
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Towers
 
         IEnumerator FireBullet()
         {
-            while (Targetter.GetTargets().Count > 0)
+            while (Targetter.Targets.Count > 0)
             {
                 var rotatedVector = transform.forward;
                 for (var i = 0; i < numberOfBullets; i++)
