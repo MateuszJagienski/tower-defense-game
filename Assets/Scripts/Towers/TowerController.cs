@@ -50,14 +50,7 @@ namespace Assets.Scripts.Towers
 
         protected void Update()
         {
- 
         }
-
-        public void RemoveInactiveTargets()
-        {
-            Targetter.GetTargets().RemoveAll(i => i == null || !i.activeInHierarchy);
-        }
-
 
         public void PrepareBullet(Vector3 startedPostion, Transform target, BulletMovementType bulletMovementType)
         {
@@ -82,10 +75,15 @@ namespace Assets.Scripts.Towers
             ActiveBullet.GetComponent<BulletController>().SetShotDirection(targetDirection);
 
         }
+        
+        public void RemoveInactiveTargets()
+        {
+            Targetter.Targets.RemoveAll(i => i == null || !i.activeInHierarchy);
+        }
 
         public void FindTarget(AttackType attackType)
         {
-            var targets = Targetter.GetTargets();
+            var targets = Targetter.Targets;
             switch (attackType)
             {
                 case AttackType.First:

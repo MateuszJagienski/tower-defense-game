@@ -7,7 +7,9 @@ namespace Assets.Scripts.Enemies
     {
         private EnemyController enemyController;
         private List<SingleWaypoints> waypoints;
+        private Waypoints waypointsScript;
         private int path;
+        private float traveledDistance;
         /// <summary>
         /// Responsible for equally distributed paths for enemies.
         /// </summary>
@@ -16,7 +18,8 @@ namespace Assets.Scripts.Enemies
         void Awake()
         {
             enemyController = gameObject.GetComponent<EnemyController>();
-            waypoints  = GameObject.Find("Waypoints").GetComponent<Waypoints>().AllWaypoints;
+            waypointsScript = GameObject.Find("Waypoints").GetComponent<Waypoints>();
+            waypoints = waypointsScript.AllWaypoints;
         }
 
         private void OnEnable()
@@ -27,11 +30,10 @@ namespace Assets.Scripts.Enemies
 
         void Update()
         {
-            if (gameObject.activeInHierarchy)
-            {
-                MoveTowardsWaypoints();
-            }
-        
+            if (!gameObject.activeInHierarchy) return;
+            
+            MoveTowardsWaypoints();
+
         }
         /// <summary>
         /// Moves the enemy towards the next waypoint based on the current waypoint index and path.
@@ -52,10 +54,12 @@ namespace Assets.Scripts.Enemies
             }
             enemyController.transform.LookAt(currentWaypoint);
 
+
             // 
             currentWaypoint = waypoints[path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
 
             var step = enemyController.CurrentActiveEnemy.Speed * Time.deltaTime;
+            traveledDistance += step;
             gameObject.transform.position = Vector3.MoveTowards(currentPosition, currentWaypoint, step);
         }
 
@@ -63,6 +67,11 @@ namespace Assets.Scripts.Enemies
         {
             if (index < 0) index = 0;
             return waypoints[path].Waypoints[index].transform.position;
+        }
+
+        public float GetDistanceToEnd()
+        {
+            return waypointsScript.WaypointsDistance[path] - traveledDistance;
         }
     }
 }
