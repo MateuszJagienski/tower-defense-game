@@ -8,12 +8,13 @@ namespace Assets.Scripts.Enemies
     public class Waypoints : MonoBehaviour
     {
         public List<SingleWaypoints> AllWaypoints;
-        public Dictionary<int, float> WaypointsDistance { get; private set; }
+        public static Dictionary<int, float> WaypointsDistance { get; private set; }
 
         private void Awake()
         {
             WaypointsDistance = new Dictionary<int, float>();
             CalculateWaypointsDistance();
+            Debug.Log(WaypointsDistance[0]);
         }
 
         [ContextMenu("Fill waypoints")]
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Enemies
 
         private void CalculateWaypointsDistance()
         {
-            var pathsCount = AllWaypoints.Count;
+            var pathsCount = 0;
             var distance = 0f;
             foreach (var sw in AllWaypoints)
             {

@@ -71,7 +71,7 @@ namespace Assets.Scripts.Enemies
 
         public float GetDistanceToEnd()
         {
-            return waypointsScript.WaypointsDistance[path] - traveledDistance;
+            return Waypoints.WaypointsDistance[path] - traveledDistance;
         }
     }
 }

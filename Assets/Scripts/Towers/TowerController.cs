@@ -121,24 +121,17 @@ namespace Assets.Scripts.Towers
 
         public GameObject FindFirstEnemy(List<GameObject> enemies)
         {
-            var currentMax = 0;
             GameObject currentFirst = null;
-            var currentClosestDistance = 999f;
-            foreach (var e in enemies)
+            var currentFirstDistance = float.MaxValue;
+            foreach (var target in enemies)
             {
-                var enemy = e.GetComponent<EnemyController>();
+                var enemyMovement = target.GetComponent<EnemyMovement>();
+                var dist = enemyMovement.GetDistanceToEnd();
 
-                if (enemy.CurrentWaypointIndex >= currentMax && e.activeInHierarchy)
-                {
-                    currentMax = enemy.CurrentWaypointIndex;
-                    var dist = Vector3.Distance(enemy.transform.position, waypoints[enemy.CurrentWaypointIndex].transform.position);
-                    if (dist < currentClosestDistance)
-                    {
-                        currentClosestDistance = dist;
-                        currentFirst =  e;
-                    }
-                }
+                if (!target.activeInHierarchy || !(dist < currentFirstDistance)) continue;
 
+                currentFirstDistance = dist;
+                currentFirst = target;
             }
             return currentFirst;
         }
