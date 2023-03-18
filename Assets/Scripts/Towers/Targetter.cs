@@ -16,7 +16,25 @@ namespace Assets.Scripts.Towers
             GetComponent<SphereCollider>().radius = radius;
         }
 
-        public GameObject FindClosestEnemy()
+        #region Find Target
+        /// <summary>
+        /// Finds target based on attack type, FindFirst default
+        /// </summary>
+        /// <param name="attackType"></param>
+        /// <returns></returns>
+        public GameObject FindTarget(AttackType attackType)
+        {
+            return attackType switch
+            {
+                AttackType.First => FindFirstEnemy(),
+                AttackType.Last => FindLastEnemy(),
+                AttackType.Strong => FindStrongestEnemy(),
+                AttackType.Close => FindClosestEnemy(),
+                _ => FindFirstEnemy()
+            };
+        }
+
+        private GameObject FindClosestEnemy()
         {
             GameObject closestEnemy = null;
             var closestDistance = float.MaxValue;
@@ -32,11 +50,11 @@ namespace Assets.Scripts.Towers
             return closestEnemy;
         }
 
-        public GameObject FindFirstEnemy(List<GameObject> enemies)
+        private GameObject FindFirstEnemy()
         {
             GameObject currentFirst = null;
             var currentFirstDistance = float.MaxValue;
-            foreach (var target in enemies)
+            foreach (var target in targets)
             {
                 var enemyMovement = target.GetComponent<EnemyMovement>();
                 var dist = enemyMovement.GetDistanceToEnd();
@@ -49,12 +67,14 @@ namespace Assets.Scripts.Towers
             return currentFirst;
         }
 
-        public GameObject FindStrongestEnemy(List<GameObject> enemies)
+        private GameObject FindStrongestEnemy()
         {
             GameObject strongestEnemy = null;
-            var maxId = 0.0f;
-            foreach (var enemy in enemies.Where(enemy => enemy.GetComponent<Enemy>().Id > maxId))
+            var maxId = 0;
+            foreach (var enemy in targets)
             {
+                if (enemy.GetComponent<Enemy>().Id <= maxId) continue;
+
                 maxId = enemy.GetComponent<Enemy>().Id;
                 strongestEnemy = enemy;
             }
@@ -62,34 +82,23 @@ namespace Assets.Scripts.Towers
             return strongestEnemy;
         }
 
-/*        public GameObject FindLastEnemy(List<GameObject> enemies)
+        private GameObject FindLastEnemy()
         {
-            Debug.Log("last enemy");
-            var currentMin = 99;
-            GameObject currentLast = null;
-            var currentMaxDistance = 0f;
-            foreach (var e in enemies)
+            GameObject currentFirst = null;
+            var currentFirstDistance = float.MinValue;
+            foreach (var target in targets)
             {
-                var enemy = e.GetComponent<EnemyController>();
+                var enemyMovement = target.GetComponent<EnemyMovement>();
+                var dist = enemyMovement.GetDistanceToEnd();
 
-                if (enemy.CurrentWaypointIndex <= currentMin && e.activeInHierarchy)
-                {
-                    Debug.Log("current waypoint" + enemy.CurrentWaypointIndex);
-                    currentMin = enemy.CurrentWaypointIndex;
-                    var distanceToNextWaypoint = Vector3.Distance(enemy.transform.position, waypoints[enemy.CurrentWaypointIndex].transform.position);
-                    Debug.Log("dis to nex" + distanceToNextWaypoint);
-                    if (distanceToNextWaypoint > currentMaxDistance)
-                    {
+                if (!target.activeInHierarchy || !(dist > currentFirstDistance)) continue;
 
-                        currentMaxDistance = distanceToNextWaypoint;
-                        currentLast = e;
-                    }
-                }
-
+                currentFirstDistance = dist;
+                currentFirst = target;
             }
-            return currentLast;
-        }*/
-
+            return currentFirst;
+        }
+        #endregion
 
         private void OnTriggerEnter(Collider other)
         {

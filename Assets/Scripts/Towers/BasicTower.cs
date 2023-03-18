@@ -27,7 +27,7 @@ namespace Assets.Scripts.Towers
         {
             while (Targetter.Targets.Count > 0)
             {
-                FindTarget(AttackType);
+                Targetter.FindTarget(AttackType);
                 if (CurrentTarget == null)
                 {
                     yield return new WaitForSeconds(1 / Tower.AttackSpeed);

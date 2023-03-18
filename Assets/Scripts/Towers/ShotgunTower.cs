@@ -27,7 +27,7 @@ namespace Assets.Scripts.Towers
         {
             while (Targetter.Targets.Count > 0)
             {
-                FindTarget(AttackType);
+                Targetter.FindTarget(AttackType);
                 //Vector3 rotatedVector = currentTarget.transform.position - transform.position;
                 for (var i = 0; i < numberOfBullets; i++)
                 {
