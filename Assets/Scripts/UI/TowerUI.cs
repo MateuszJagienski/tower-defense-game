@@ -28,8 +28,6 @@ namespace Assets.Scripts.UI
         {
             Debug.Log("inside Start, TowerUI");
             gameUi.SelectionChanged += OnSelectionChanged;
-            //   GameUI.Instance.selectionChanged += OnSelectionChanged;
-            //   canvas = GetComponent<Canvas>();
             canvas.enabled = false;
             rangeGhost = Instantiate(rangeGhost);
         }

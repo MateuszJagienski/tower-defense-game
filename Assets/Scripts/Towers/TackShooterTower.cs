@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Towers
 {
-    class TackShooterTower : TowerController
+    public class TackShooterTower : TowerController
     {
         private int numberOfBullets = 8;
 

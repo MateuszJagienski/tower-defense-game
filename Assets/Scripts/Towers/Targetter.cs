@@ -1,14 +1,14 @@
 using Assets.Scripts.Enemies;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Towers
 {
     public class Targetter : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> targets = new List<GameObject>();
         [SerializeField] private Tower tower;
+        private List<GameObject> targets = new List<GameObject>();
+
         public List<GameObject> Targets => targets;
 
         public void SetRange(float radius)
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Towers
 
         #region Find Target
         /// <summary>
-        /// Finds target based on attack type, FindFirst default
+        /// Finds target based on attack type, FindFirst by default
         /// </summary>
         /// <param name="attackType"></param>
         /// <returns></returns>
@@ -73,9 +73,11 @@ namespace Assets.Scripts.Towers
             var maxId = 0;
             foreach (var enemy in targets)
             {
-                if (enemy.GetComponent<Enemy>().Id <= maxId) continue;
+                var enemyId = enemy.GetComponent<EnemyController>().CurrentActiveEnemy.Id;
 
-                maxId = enemy.GetComponent<Enemy>().Id;
+                if (enemyId <= maxId) continue;
+
+                maxId = enemyId;
                 strongestEnemy = enemy;
             }
 
@@ -99,6 +101,11 @@ namespace Assets.Scripts.Towers
             return currentFirst;
         }
         #endregion
+
+        public void RemoveInactiveTargets()
+        {
+            Targets.RemoveAll(i => i == null || !i.activeInHierarchy);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
