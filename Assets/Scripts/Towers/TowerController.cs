@@ -26,6 +26,7 @@ namespace Assets.Scripts.Towers
         // Start is called before the first frame update
         protected virtual void Start()
         {
+            
             Tower = GetComponent<Tower>();
             Targetter.SetRange(Tower.Range);
             

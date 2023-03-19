@@ -6,7 +6,6 @@ namespace Assets.Scripts.Towers
 {
     public class Targetter : MonoBehaviour
     {
-        [SerializeField] private Tower tower;
         private List<GameObject> targets = new List<GameObject>();
 
         public List<GameObject> Targets => targets;
