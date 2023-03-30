@@ -8,6 +8,7 @@ namespace Assets.Scripts.Enemies
         private EnemyController enemyController;
         private Enemy enemy;
         private int enemyHp;
+        [SerializeField] private new ParticleSystem particleSystem;
 
         void Awake()
         {
@@ -16,33 +17,22 @@ namespace Assets.Scripts.Enemies
 
         void OnEnable()
         {
-
             enemyHp = enemy.Hp;
         }
 
         public void TakeDamage(int damage, BulletType bulletType)
-        {        
+        {
             enemyController = GetComponentInParent<EnemyController>();
-            Debug.Log("inside enemyDamage");
 
-            if (enemy.Id == 0) enemyController.Kill(); // error
+            if (enemy.Id == 0) enemyController.Kill();
 
-            //  enemyHp -= damage;
+            enemyHp -= damage;
 
             if (enemy.NextQuantity > 1)
             {
-                Debug.Log("NextQuantity > 1");
                 enemyController.SpawnChildren();
             }
             enemyController.ActivateEnemyById(enemy.NextId);
-            // Debug.Log($"EnemyDamage: " + damage);
-
-        }
-
-
-
-        private void OnDestroy()
-        {
 
         }
     }

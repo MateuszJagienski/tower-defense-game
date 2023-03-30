@@ -44,8 +44,6 @@ namespace Assets.Scripts.Enemies
             var prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
             var spawnDirection = (prevWaypoint - transform.position).normalized;
             var spawnPosition = transform.position + spawnDirection;
-            Debug.Log(
-                $"Dir1: {spawnDirection} prevWaypoint: {prevWaypoint} transform.pos: {transform.position} currentWaypointIndex: {CurrentWaypointIndex} currentWaypointPos: {enemyMovement.GetCurrentWaypoint(index)}");
             for (var i = 0; i < currentActiveModel.NextQuantity; i++)
             {
                 // check if enemy reached waypoint
@@ -171,17 +169,17 @@ namespace Assets.Scripts.Enemies
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out BulletController bulletController) == false) return;
-            if (other.gameObject.TryGetComponent(out Bullet bullet) == false) return;
-            other.gameObject.TryGetComponent(out colliderBullet);
+            if (!other.gameObject.TryGetComponent(out BulletController bulletController) || 
+                !other.gameObject.TryGetComponent(out Bullet bullet) ||
+                !other.gameObject.TryGetComponent(out colliderBullet)) return;
 
+            var bulletTakenDamage = Math.Min(bullet.Damage, hp);
+
+            OnEnemyDamaged?.Invoke(this);
+            
+            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(bullet.Damage, bullet.BulletType);
 
             bulletController.EnemyHit();
-
-            var bulletTakenDamage = Math.Min(bullet.Damage, hp); 
-            OnEnemyDamaged?.Invoke(this);
-            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(1, bullet.BulletType);
-
             bullet.TakeDamage(2, currentActiveModel.EnemyType);
         }
 
