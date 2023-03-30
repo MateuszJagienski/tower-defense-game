@@ -137,10 +137,4 @@ namespace Assets.Scripts.Bullets
             this.BulletMovementType = bulletMovementType;
         }
     }
-    public enum BulletType
-    {
-        Normal,
-        Explosive,
-        Follow,
-    }
 }

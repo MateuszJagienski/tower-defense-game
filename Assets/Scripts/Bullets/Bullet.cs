@@ -1,8 +1,9 @@
+using Assets.Scripts.Enemies;
 using UnityEngine;
 
 namespace Assets.Scripts.Bullets
 {
-    public class Bullet : MonoBehaviour, IDamageable
+    public class Bullet : MonoBehaviour, BulletDamage
     {
         public int InitialDamage => bulletData.InitialDamage[BulletLvl];
         public int SplashDamage => bulletData.SplashDamage[BulletLvl];
@@ -12,6 +13,7 @@ namespace Assets.Scripts.Bullets
         public int Id => bulletData.Id;
         private int damage;
         public int Damage => damage;
+        public BulletType BulletType = BulletType.BASIC; // todo() 
 
         [SerializeField]
         private BulletData bulletData;
@@ -20,7 +22,7 @@ namespace Assets.Scripts.Bullets
         {
             damage = InitialDamage;
         }
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, EnemyType enemyType)
         {
             if (this.damage > damage)
             {

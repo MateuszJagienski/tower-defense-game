@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Bullets;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
-    public class SwellingEnemy : MonoBehaviour, IDamageable
+    public class SwellingEnemy : MonoBehaviour, EnemyDamage
     {
         private int counter;
         [SerializeField]
@@ -25,7 +26,7 @@ namespace Assets.Scripts.Enemies
         }
 
     
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, BulletType bulletType)
         {
             if (enemyController == null)
             {
@@ -45,11 +46,11 @@ namespace Assets.Scripts.Enemies
                 {
                     var enemyControllerColider = collider.GetComponent<EnemyController>();
 
-                    var n = collider.gameObject.GetComponent<IDamageable>();
+                    var n = collider.gameObject.GetComponent<Scripts.EnemyDamage>();
                     Debug.Log($"enmy conroller: {enemyControllerColider}");
                     if (enemyControllerColider != null)
                     {
-                        enemyControllerColider.CallTakeDamage();
+                        enemyControllerColider.CallTakeDamage(damage, bulletType);
                     }
                 }
                 //enemyController.ActivateEnemyById(6);

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts
 {
-    public interface IDamageable
+    public interface EnemyDamage
     { 
         void TakeDamage(int damage);
     }

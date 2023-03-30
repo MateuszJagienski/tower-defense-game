@@ -17,6 +17,9 @@ namespace Assets.Scripts.Enemies
         public int CurrentWaypointIndex { get; set; }
         [SerializeField] private List<Enemy> enemiesModels;
 
+        /// <summary>
+        /// Used to prevent further collinding with enemy children
+        /// </summary>
         private Collider colliderBullet;
         private int currentActiveEnemyId;
         private Enemy currentActiveModel;
@@ -168,23 +171,23 @@ namespace Assets.Scripts.Enemies
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<BulletController>() == null) return;
-            Debug.Log("Trigger enter:");
-            var bulletController = other.gameObject.GetComponent<BulletController>();
+            if (other.gameObject.TryGetComponent(out BulletController bulletController) == false) return;
+            if (other.gameObject.TryGetComponent(out Bullet bullet) == false) return;
+            other.gameObject.TryGetComponent(out colliderBullet);
+
+
             bulletController.EnemyHit();
-            colliderBullet = bulletController.gameObject.GetComponent<Collider>();
-            var bullet = other.gameObject.GetComponent<Bullet>();
 
-            var bulletTakenDamage = Math.Min(bullet.Damage, hp);
+            var bulletTakenDamage = Math.Min(bullet.Damage, hp); 
             OnEnemyDamaged?.Invoke(this);
-            currentActiveModel.GetComponent<IDamageable>().TakeDamage(1);
+            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(1, bullet.BulletType);
 
-            bullet.TakeDamage(2);
+            bullet.TakeDamage(2, currentActiveModel.EnemyType);
         }
 
-        public void CallTakeDamage()
+        public void CallTakeDamage(int damage, BulletType bulletType)
         {
-            currentActiveModel.GetComponent<IDamageable>().TakeDamage(1);
+            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(damage, bulletType);
         }
     }
 }
