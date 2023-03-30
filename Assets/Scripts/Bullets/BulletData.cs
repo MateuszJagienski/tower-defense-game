@@ -10,8 +10,7 @@ namespace Assets.Scripts.Bullets
         public int[] Range;
         public int[] SplashRange;
         public int[] SplashDamage;
-
-        public int Id;
+        public BulletType BulletType;
 
     }
 }

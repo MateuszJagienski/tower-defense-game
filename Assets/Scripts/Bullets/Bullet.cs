@@ -10,7 +10,6 @@ namespace Assets.Scripts.Bullets
         public int SplashRange => bulletData.SplashRange[BulletLvl];
         public int Speed => bulletData.Speed[BulletLvl];
         public int Range => bulletData.Range[BulletLvl];
-        public int Id => bulletData.Id;
         private int damage;
         public int Damage => damage;
         public BulletType BulletType = BulletType.BASIC; // todo() 
