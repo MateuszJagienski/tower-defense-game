@@ -1,18 +1,21 @@
-﻿using Assets.Scripts.Bullets;
+﻿using System;
+using Assets.Scripts.Bullets;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
-    public class BasicEnemyDamage : MonoBehaviour, EnemyDamage
+    public class BasicEnemyDamage : MonoBehaviour, IEnemyDamage
     {
+
         private EnemyController enemyController;
         private Enemy enemy;
         private int enemyHp;
-        [SerializeField] private new ParticleSystem particleSystem;
+        private ParticleSystem particleSystem;
 
         void Awake()
         {
             enemy = GetComponent<Enemy>();
+            particleSystem = GetComponent<ParticleSystem>();
         }
 
         void OnEnable()
@@ -24,16 +27,43 @@ namespace Assets.Scripts.Enemies
         {
             enemyController = GetComponentInParent<EnemyController>();
 
-            if (enemy.Id == 0) enemyController.Kill();
+            switch (bulletType)
+            {
+                case BulletType.BASIC:
+                    enemyHp -= damage;
+                    break;
+                case BulletType.SPLASH:
+                    enemyHp -= damage;
+                    break;
+                case BulletType.PIERCE:
+                    OnBreak();
+                    break;
+                case BulletType.BACKWARD:
+                    enemyController.CurrentWaypointIndex = 0;
+                    break;
+            }
 
-            enemyHp -= damage;
+            //particleSystem.Play();
+            if (enemyHp <= 0)
+            {
+                OnBreak();
+            }
 
+        }
+
+        private void OnBreak()
+        {
+            if (enemy.Id == 0)
+            {
+                enemyController.Kill();
+                return;
+            }
+            
             if (enemy.NextQuantity > 1)
             {
                 enemyController.SpawnChildren();
             }
             enemyController.ActivateEnemyById(enemy.NextId);
-
         }
     }
 }

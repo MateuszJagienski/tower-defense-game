@@ -11,5 +11,6 @@ namespace Assets.Scripts.Bullets
         BASIC = 0,
         SPLASH = 1,
         PIERCE = 2,
+        BACKWARD = 3
     }
 }

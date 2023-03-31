@@ -176,16 +176,16 @@ namespace Assets.Scripts.Enemies
             var bulletTakenDamage = Math.Min(bullet.Damage, hp);
 
             OnEnemyDamaged?.Invoke(this);
-            
-            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(bullet.Damage, bullet.BulletType);
+
+            currentActiveModel.GetComponent<IEnemyDamage>().TakeDamage(bullet.Damage, bullet.BulletType);
 
             bulletController.EnemyHit();
-            bullet.TakeDamage(2, currentActiveModel.EnemyType);
+            bullet.TakeDamage(hp, currentActiveModel.EnemyType);
         }
 
         public void CallTakeDamage(int damage, BulletType bulletType)
         {
-            currentActiveModel.GetComponent<EnemyDamage>().TakeDamage(damage, bulletType);
+            currentActiveModel.GetComponent<IEnemyDamage>().TakeDamage(damage, bulletType);
         }
     }
 }

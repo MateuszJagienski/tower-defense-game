@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: AAAA
   m_EditorClassIdentifier: 
   PartWave:
-  - quantity: 10
-    timeBetweenSpawn: 0.2
-    enemyID: 6
-  - quantity: 1
-    timeBetweenSpawn: 1
-    enemyID: 0
-  - quantity: 10
-    timeBetweenSpawn: 0.2
-    enemyID: 6
-  - quantity: 1
-    timeBetweenSpawn: 1
-    enemyID: 0
-  - quantity: 10
-    timeBetweenSpawn: 0.2
-    enemyID: 6
-  - quantity: 1
-    timeBetweenSpawn: 1
-    enemyID: 0
-  - quantity: 10
-    timeBetweenSpawn: 0.2
-    enemyID: 6
-  - quantity: 1
-    timeBetweenSpawn: 1
-    enemyID: 0
+  - Quantity: 5000
+    TimeBetweenSpawn: 2
+    EnemyId: 5
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0
+  - Quantity: 0
+    TimeBetweenSpawn: 0
+    EnemyId: 0

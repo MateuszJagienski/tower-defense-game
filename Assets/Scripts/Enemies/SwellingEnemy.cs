@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
-    public class SwellingEnemy : MonoBehaviour, EnemyDamage
+    public class SwellingEnemy : MonoBehaviour, IEnemyDamage
     {
         private int counter;
         [SerializeField]
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Enemies
                 {
                     var enemyControllerColider = collider.GetComponent<EnemyController>();
 
-                    var n = collider.gameObject.GetComponent<Scripts.EnemyDamage>();
+                    var n = collider.gameObject.GetComponent<IEnemyDamage>();
                     Debug.Log($"enmy conroller: {enemyControllerColider}");
                     if (enemyControllerColider != null)
                     {

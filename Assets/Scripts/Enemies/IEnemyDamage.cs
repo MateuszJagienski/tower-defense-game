@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Enemies
 {
-    public interface EnemyDamage
+    public interface IEnemyDamage
     {
         void TakeDamage(int damage, BulletType bulletType);
     }

@@ -67,16 +67,20 @@ namespace Assets.Scripts.Enemies
             foreach (var part in wave)
             {
                 for (var i = 0; i < part.Quantity; i++)
-                {   
-                    if (part.EnemyId == 999)
+                {
+                    switch (part.EnemyId)
                     {
-                        var rand = Random.Range(0f, 7f);
-                        EnemySpawner.Instance.SpawnEnemy((int) rand);
+                        case 999:
+                        {
+                            var rand = Random.Range(0f, 7f);
+                            EnemySpawner.Instance.SpawnEnemy((int) rand);
+                            break;
+                        }
+                        case > 0:
+                            EnemySpawner.Instance.SpawnEnemy(part.EnemyId);
+                            break;
                     }
-                    else if (part.EnemyId > 0)
-                    {
-                        EnemySpawner.Instance.SpawnEnemy(part.EnemyId);
-                    }
+
                     yield return new WaitForSeconds(part.TimeBetweenSpawn);
                 }
 
