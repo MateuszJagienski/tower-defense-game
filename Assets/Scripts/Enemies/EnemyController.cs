@@ -115,6 +115,7 @@ namespace Assets.Scripts.Enemies
         {
             if (enemy == null)
             {
+                Debug.Log($"{enemiesModels[currentActiveEnemyId]}");
                 currentActiveModel = Instantiate(enemiesModels[currentActiveEnemyId], transform.position,
                     Quaternion.identity);
                 currentActiveModel.gameObject.SetActive(true);

@@ -38,7 +38,7 @@ namespace Assets.Scripts.Enemies
         /// <summary>
         /// Moves the enemy towards the next waypoint based on the current waypoint index and path.
         /// </summary>
-        void MoveTowardsWaypoints()
+        private void MoveTowardsWaypoints()
         {
             var currentWaypoint = waypoints[path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
             var currentPosition = transform.position;
