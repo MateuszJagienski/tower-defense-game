@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 9
   Speed: 9
-  Id: 4
-  NextId: 2
+  EnemyModelType: 5
+  NextEnemyModelType: 4
   NextQuantity: 4

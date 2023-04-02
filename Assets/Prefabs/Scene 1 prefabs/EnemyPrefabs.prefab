@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931070679288283099}
-  - component: {fileID: 1931070679288283098}
   m_Layer: 0
   m_Name: EnemyPrefabs
   m_TagString: Untagged
@@ -32,22 +31,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1931070679288283098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931070679288283093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a660506eb422f74b98f189cee90ed10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 7557427583480581252, guid: 0e7af30cb5d8db44c8509b79cd626a4e, type: 3}
-  - {fileID: -7091354675972184474, guid: 36eb3d107d6cd5e41b091796d3f06c28, type: 3}
-  - {fileID: 790381159768617320, guid: 3dd374a4b85721b41b3fc406cd4c0e9d, type: 3}
-  - {fileID: 790381159768617320, guid: 4a92ce0667817ed49966e412b4d2b60a, type: 3}
-  - {fileID: 790381159768617320, guid: a8647d39800ebfb43ba6899e30620b6b, type: 3}
-  - {fileID: 790381159768617320, guid: c8ef50615ddaad842b5ace3f55701ec6, type: 3}

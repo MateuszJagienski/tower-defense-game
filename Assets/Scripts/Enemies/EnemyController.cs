@@ -13,15 +13,14 @@ namespace Assets.Scripts.Enemies
         public static event Action<EnemyController> OnEnemyDamaged;
 
         // current used enemy, used for access data not model
-        public Enemy CurrentActiveEnemy => enemiesModels[currentActiveEnemyId];
+        public Enemy CurrentActiveEnemy => EnemyPrefabs.GetEnemyByType(currentActiveEnemyModelType);
         public int CurrentWaypointIndex { get; set; }
-        [SerializeField] private List<Enemy> enemiesModels;
 
         /// <summary>
-        /// Used to prevent further collinding with enemy children
+        /// Used to prevent further colliding with enemy children
         /// </summary>
         private Collider colliderBullet;
-        private int currentActiveEnemyId;
+        private EnemyModelType currentActiveEnemyModelType;
         private Enemy currentActiveModel;
         private EnemySpawner enemySpawner;
         private int hp;
@@ -71,7 +70,7 @@ namespace Assets.Scripts.Enemies
         /// <returns></returns>
         private EnemyController SpawnSingleEnemy(int path, int index, Vector3 spawnPosition)
         {
-            var childEnemy = enemySpawner.SpawnEnemy(currentActiveModel.NextId, spawnPosition);
+            var childEnemy = enemySpawner.SpawnEnemy(currentActiveModel.NextEnemyModelType, spawnPosition);
             Physics.IgnoreCollision(colliderBullet, childEnemy.GetComponent<Collider>());
             childEnemy.CurrentWaypointIndex = index + 1;
             childEnemy.GetComponent<EnemyMovement>().Path = path;
@@ -95,13 +94,13 @@ namespace Assets.Scripts.Enemies
         /// Takes enemy from pool based on given id.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="enemyModelType"></param>
         /// <returns></returns>
-        public EnemyController ActivateEnemyById(int id)
+        public EnemyController ActivateEnemyByModelType(EnemyModelType enemyModelType)
         {
-            currentActiveEnemyId = id;
-            if (currentActiveModel != null) ObjectPool.Add(currentActiveModel.Id, currentActiveModel.gameObject);
-            Debug.Log("curId: " + currentActiveEnemyId);
-            var enemy = ObjectPool.Get(currentActiveEnemyId);
+            currentActiveEnemyModelType = enemyModelType;
+            if (currentActiveModel != null) EnemyPool.Add(currentActiveModel.EnemyModelType, currentActiveModel.gameObject.GetComponent<Enemy>());
+            var enemy = EnemyPool.Get(currentActiveEnemyModelType);
             Debug.Log("enemy pool: " + (enemy == null));
             PlaceEnemy(enemy);
 
@@ -111,12 +110,11 @@ namespace Assets.Scripts.Enemies
         /// Sets parent for enemy model and sets position.
         /// </summary>
         /// <param name="enemy"></param>
-        private void PlaceEnemy(GameObject enemy)
+        private void PlaceEnemy(Enemy enemy)
         {
             if (enemy == null)
             {
-                Debug.Log($"{enemiesModels[currentActiveEnemyId]}");
-                currentActiveModel = Instantiate(enemiesModels[currentActiveEnemyId], transform.position,
+                currentActiveModel = Instantiate(EnemyPrefabs.GetEnemyByType(currentActiveEnemyModelType), transform.position,
                     Quaternion.identity);
                 currentActiveModel.gameObject.SetActive(true);
                 currentActiveModel.transform.parent = transform;
@@ -152,16 +150,6 @@ namespace Assets.Scripts.Enemies
         {
             EconomySystem.Instance.IncreaseGold(1);
             DeactivateEnemy();
-        }
-
-
-        [ContextMenu("Auto fill models")]
-        private void AutofillModels()
-        {
-            enemiesModels = Resources.LoadAll("Models/Enemies", typeof(Enemy))
-                .Cast<Enemy>()
-                .OrderBy(x => x.Id)
-                .ToList();
         }
 
         /// <summary>

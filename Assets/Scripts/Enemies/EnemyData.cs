@@ -7,8 +7,8 @@ namespace Assets.Scripts.Enemies
     {
         public int Hp;
         public int Speed;
-        public int Id;
-        public int NextId;
+        public EnemyModelType EnemyModelType;
+        public EnemyModelType NextEnemyModelType;
         public int NextQuantity;
     }
 }

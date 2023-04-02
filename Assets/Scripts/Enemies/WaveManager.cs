@@ -68,19 +68,7 @@ namespace Assets.Scripts.Enemies
             {
                 for (var i = 0; i < part.Quantity; i++)
                 {
-                    switch (part.EnemyId)
-                    {
-                        case 999:
-                        {
-                            var rand = Random.Range(0f, 7f);
-                            EnemySpawner.Instance.SpawnEnemy((int) rand);
-                            break;
-                        }
-                        case > 0:
-                            EnemySpawner.Instance.SpawnEnemy(part.EnemyId);
-                            break;
-                    }
-
+                    EnemySpawner.Instance.SpawnEnemy(part.EnemyModelType);
                     yield return new WaitForSeconds(part.TimeBetweenSpawn);
                 }
 

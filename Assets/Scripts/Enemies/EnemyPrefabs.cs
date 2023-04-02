@@ -4,15 +4,28 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
-    public class EnemyPrefabs : MonoBehaviour
+    public class EnemyPrefabs
     {
-        [SerializeField]
-        private List<Enemy> enemyPrefabs;
+        private static readonly Dictionary<EnemyModelType, Enemy> EnemyModels;
 
-        public Dictionary<int, Enemy> GetEnemyPrefabs()
+        static EnemyPrefabs()
         {
-            return enemyPrefabs
-                .ToDictionary(e => e.EnemyData.Id, e => e);
+            var list = Resources.LoadAll("Models/Enemies", typeof(Enemy))
+                .Cast<Enemy>()
+                .ToList();
+            foreach (var e in list)
+            {
+                Debug.Log(e.EnemyModelType);
+            }
+            EnemyModels = Resources.LoadAll("Models/Enemies", typeof(Enemy))
+                .Cast<Enemy>()
+                .ToDictionary(e => e.EnemyData.EnemyModelType, e => e);
+        }
+
+        public static Enemy GetEnemyByType(EnemyModelType enemyModelType)
+        {
+            Debug.Log(enemyModelType);
+            return EnemyModels[enemyModelType];
         }
     }
 }

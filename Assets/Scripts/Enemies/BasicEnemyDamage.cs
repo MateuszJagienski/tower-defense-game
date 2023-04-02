@@ -41,6 +41,9 @@ namespace Assets.Scripts.Enemies
                 case BulletType.BACKWARD:
                     enemyController.CurrentWaypointIndex = 0;
                     break;
+                default:
+                    enemyHp -= damage;
+                    break;
             }
 
             //particleSystem.Play();
@@ -53,7 +56,7 @@ namespace Assets.Scripts.Enemies
 
         private void OnBreak()
         {
-            if (enemy.Id == 0)
+            if (enemy.EnemyModelType == EnemyModelType.Red)
             {
                 enemyController.Kill();
                 return;
@@ -63,7 +66,7 @@ namespace Assets.Scripts.Enemies
             {
                 enemyController.SpawnChildren();
             }
-            enemyController.ActivateEnemyById(enemy.NextId);
+            enemyController.ActivateEnemyByModelType(enemy.NextEnemyModelType);
         }
     }
 }

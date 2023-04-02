@@ -66,21 +66,22 @@ namespace Assets.Scripts.Towers
             return currentFirst;
         }
 
+        /// todo() fix this
         private GameObject FindStrongestEnemy()
         {
             GameObject strongestEnemy = null;
             var maxId = 0;
             foreach (var enemy in targets)
             {
-                var enemyId = enemy.GetComponent<EnemyController>().CurrentActiveEnemy.Id;
+/*                var enemyId = enemy.GetComponent<EnemyController>().CurrentActiveEnemy.Id;
 
                 if (enemyId <= maxId) continue;
 
                 maxId = enemyId;
                 strongestEnemy = enemy;
-            }
+*/            }
 
-            return strongestEnemy;
+            return targets[0];
         }
 
         private GameObject FindLastEnemy()

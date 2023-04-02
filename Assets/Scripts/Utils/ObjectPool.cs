@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Utils
 {
-    public static class ObjectPool
+    public class ObjectPool<TKey, TValue> where TValue : Component
     {
-        private static readonly Dictionary<int, List<GameObject>> Pool = new Dictionary<int, List<GameObject>>();
+        private static readonly Dictionary<TKey, List<TValue>> Pool = new Dictionary<TKey, List<TValue>>();
 
         /// <summary>
         /// Clear's the entire pool of objects, must be called on new scene load.
@@ -20,22 +20,21 @@ namespace Assets.Scripts.Utils
         /// Returns the amount of objects in the pool of this given type.
         /// </summary>
         /// <returns></returns>
-        public static int GetAmountInPool(int key)
+        public static int GetAmountInPool(TKey key)
         {
-            return Pool.TryGetValue(key, out List<GameObject> poolableObjects) ? poolableObjects.Count : 0;
+            return Pool.TryGetValue(key, out List<TValue> poolableObjects) ? poolableObjects.Count : 0;
         }
 
         /// <summary>
-        /// Add poolable obj to the pool.
+        /// Add poolable obj to the pool and deactivate it.
         /// </summary>
         /// <param name="poolableObj"></param>
-        public static void Add(int key, GameObject poolableObject)
+        public static void Add(TKey key, TValue poolableObject)
         {
-            List<GameObject> poolableObjects;
-            if (!Pool.TryGetValue(key, out poolableObjects))
+            if (!Pool.TryGetValue(key, out var poolableObjects))
             {
                 // Add to pool and deactivate enemy.
-                Pool.Add(key, new List<GameObject> { poolableObject });
+                Pool.Add(key, new List<TValue> { poolableObject });
                 poolableObject.gameObject.SetActive(false);
             }
             else
@@ -49,21 +48,17 @@ namespace Assets.Scripts.Utils
         /// Get available poolable obj from the pool converted to its concrete type.
         /// </summary>
         /// <returns></returns>
-        public static GameObject Get(int key)
+        public static TValue Get(TKey key)
         {
-            List<GameObject> poolableObjects;
+            if (!Pool.TryGetValue(key, out var poolableObjects)) return null;
 
-            if (Pool.TryGetValue(key, out poolableObjects))
-            {
-                var poolableObj = poolableObjects.First();
-                // Get existing enemy data
-                poolableObjects.Remove(poolableObj);
-                poolableObj.gameObject.SetActive(true);
-                if (poolableObjects.Count == 0)
-                    Pool.Remove(key);
-                return poolableObj;
-            }
-            return null;
+            var poolableObj = poolableObjects.First();
+            // Get existing enemy data
+            poolableObjects.Remove(poolableObj);
+            poolableObj.gameObject.SetActive(true);
+            if (poolableObjects.Count == 0)
+                Pool.Remove(key);
+            return poolableObj;
         }
 
     }

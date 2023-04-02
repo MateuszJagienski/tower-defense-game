@@ -15,25 +15,25 @@ MonoBehaviour:
   PartWave:
   - Quantity: 5000
     TimeBetweenSpawn: 2
-    EnemyId: 5
+    EnemyModelType: 5
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0
   - Quantity: 0
     TimeBetweenSpawn: 0
-    EnemyId: 0
+    EnemyModelType: 0

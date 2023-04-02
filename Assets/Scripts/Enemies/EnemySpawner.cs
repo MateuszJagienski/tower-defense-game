@@ -38,24 +38,22 @@ namespace Assets.Scripts.Enemies
        
         }
 
-        public void SpawnEnemy(int enemyId)
+        public void SpawnEnemy(EnemyModelType enemyModelType)
         {
-            EnemyController en;
-            pool.Get(out en);
+            pool.Get(out var en);
             var spawn = en.GetComponent<EnemyMovement>().GetCurrentWaypoint(en.CurrentWaypointIndex);
             en.transform.position = spawn;
-            en.ActivateEnemyById(enemyId);
+            en.ActivateEnemyByModelType(enemyModelType);
             //var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);
-            //enemy.ActivateEnemyById(enemyID);
+            //enemy.ActivateEnemyByModelType(enemyID);
         }
-        public EnemyController SpawnEnemy(int enemyId, Vector3 spawnPosition)
+        public EnemyController SpawnEnemy(EnemyModelType enemyModelType, Vector3 spawnPosition)
         {
-            EnemyController en;
-            pool.Get(out en);
+            pool.Get(out var en);
             en.transform.position = spawnPosition;
-            en.ActivateEnemyById(enemyId);
+            en.ActivateEnemyByModelType(enemyModelType);
             //var enemy = Instantiate(enemyController, spawnPosition, Quaternion.identity);
-            //enemy.ActivateEnemyById(enemyID);
+            //enemy.ActivateEnemyByModelType(enemyID);
             //return enemy;
             return en;
         }
@@ -65,9 +63,9 @@ namespace Assets.Scripts.Enemies
             pool.Release(enemyController);
         }
 
-        private EnemyController GetEnemyById(int enemyId) 
+        private EnemyController GetEnemyByModelType(EnemyModelType enemyModelType) 
         {
-            return enemyController.ActivateEnemyById(enemyId);
+            return enemyController.ActivateEnemyByModelType(enemyModelType);
         }
     }
 }

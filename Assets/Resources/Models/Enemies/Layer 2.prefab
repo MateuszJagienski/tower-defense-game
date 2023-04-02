@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8777828121287597123
 Transform:
   m_ObjectHideFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27171f3d0538e3648a7ab93445081829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   EnemyData: {fileID: 11400000, guid: c0a99f362b893ea4e952d857ebdfb3cb, type: 2}
 --- !u!114 &-4103598759100707024
 MonoBehaviour:

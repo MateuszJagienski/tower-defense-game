@@ -53,7 +53,7 @@ namespace Assets.Scripts.Enemies
                         enemyControllerColider.CallTakeDamage(damage, bulletType);
                     }
                 }
-                //enemyController.ActivateEnemyById(6);
+                //enemyController.ActivateEnemyByModelType(6);
             }
             Debug.Log($"Swelling enemy counter: {counter}");
         }
