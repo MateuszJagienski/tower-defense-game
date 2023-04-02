@@ -44,11 +44,6 @@ namespace Assets.Scripts.Enemies
                 pathsCount++;
             }
         }
-
-        public List<Transform> GetFlattenListOfAllWaypoints()
-        {
-            return AllWaypoints.SelectMany(d => d.Waypoints).ToList();
-        }
     }
 
     [Serializable]

@@ -1,61 +1,51 @@
-﻿using Assets.Scripts.Bullets;
+﻿using System;
+using Assets.Scripts.Bullets;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
     public class SwellingEnemy : MonoBehaviour, IEnemyDamage
     {
-        private int counter;
-        [SerializeField]
-        [Min(1)]
-        private int swellRange;
-        [SerializeField]
-        private float swellSpeed;
-        [SerializeField]
-        private int damage;
+        [SerializeField] [Min(1)] private int swellTickRange;
+        [SerializeField] private float swellSpeed;
+        [SerializeField] private int splashDamage;
+
         private EnemyController enemyController;
+        private int counter;
 
 
-        void Start()
+        private void OnEnable()
         {
+            counter = 0;
+            gameObject.transform.localScale = Vector3.one;
             enemyController = GetComponentInParent<EnemyController>();
             if (enemyController == null)
             {
-                Debug.Log("enemycontroller null in Start()");
+                throw new Exception("enemyController is null");
             }
         }
 
     
         public void TakeDamage(int damage, BulletType bulletType)
         {
-            if (enemyController == null)
-            {
-                enemyController = gameObject.GetComponentInParent<EnemyController>();
-                Debug.Log($"enemy controller null {enemyController.CurrentActiveEnemy}");
-                //enemyController.transform.localScale += new Vector3(swellSpeed, swellSpeed, swellSpeed);
-            }
-            if (++counter == swellRange)
-            {
-                counter = 0;
-                var radius = swellRange * swellSpeed;
-                gameObject.layer = 12;
-                var colliders = Physics.OverlapSphere(transform.position, radius, 1 << 13);
-                gameObject.layer = 13;
+         //   transform.localScale += new Vector3(swellSpeed, swellSpeed, swellSpeed);
+           // transform.position += new Vector3(0, swellSpeed, 0);
+            if (++counter != swellTickRange) return;
+            
+            
+            var radius = swellTickRange * swellSpeed;
+            // gameObject.layer = 12; to avoid collision with itself
+            var originalLayer = gameObject.layer;
+            gameObject.layer = 12;
+            var colliders = Physics.OverlapSphere(transform.position, radius, 1 << 13);
+            gameObject.layer = originalLayer;
 
-                foreach (var collider in colliders)
-                {
-                    var enemyControllerColider = collider.GetComponent<EnemyController>();
+            foreach (var ec in colliders)
+            {
+                if (!ec.TryGetComponent(out EnemyController en)) return;
 
-                    var n = collider.gameObject.GetComponent<IEnemyDamage>();
-                    Debug.Log($"enmy conroller: {enemyControllerColider}");
-                    if (enemyControllerColider != null)
-                    {
-                        enemyControllerColider.CallTakeDamage(damage, bulletType);
-                    }
-                }
-                //enemyController.ActivateEnemyByModelType(6);
+                en.CallTakeDamage(damage, bulletType);
             }
-            Debug.Log($"Swelling enemy counter: {counter}");
         }
 
     }

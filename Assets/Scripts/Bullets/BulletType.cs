@@ -8,9 +8,10 @@ namespace Assets.Scripts.Bullets
 {
     public enum BulletType
     {
-        BASIC = 0,
-        SPLASH = 1,
-        PIERCE = 2,
-        BACKWARD = 3
+        Basic = 0,
+        Splash = 1,
+        Pierce = 2,
+        Backward = 3,
+        Slow = 4
     }
 }

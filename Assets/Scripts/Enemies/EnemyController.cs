@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Bullets;
+﻿using Assets.Scripts.Bullets;
 using Assets.Scripts.Economy;
-using Assets.Scripts.Utils;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
@@ -34,6 +31,7 @@ namespace Assets.Scripts.Enemies
         /// <summary>
         /// Spawns enemy children based on current enemy model and NextQuantity parameter.
         /// Change spawning direction if enemy reached waypoint.
+        /// todo() spawning by given parameters
         /// </summary>
         public void SpawnChildren()
         {
@@ -85,7 +83,7 @@ namespace Assets.Scripts.Enemies
         /// <param name="spawnPosition"></param>
         /// <param name="range"></param>
         /// <returns></returns>
-        private bool WaypointReached(int index, Vector3 waypoint, Vector3 spawnPosition, float range)
+        private static bool WaypointReached(int index, Vector3 waypoint, Vector3 spawnPosition, float range)
         {
             return index > 0 && Vector3.Distance(waypoint, spawnPosition) <= range;
         }

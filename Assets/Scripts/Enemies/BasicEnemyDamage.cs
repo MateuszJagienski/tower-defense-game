@@ -29,17 +29,19 @@ namespace Assets.Scripts.Enemies
 
             switch (bulletType)
             {
-                case BulletType.BASIC:
+                case BulletType.Basic:
                     enemyHp -= damage;
                     break;
-                case BulletType.SPLASH:
+                case BulletType.Splash:
                     enemyHp -= damage;
                     break;
-                case BulletType.PIERCE:
+                case BulletType.Pierce:
                     OnBreak();
                     break;
-                case BulletType.BACKWARD:
+                case BulletType.Backward:
                     enemyController.CurrentWaypointIndex = 0;
+                    break;
+                case BulletType.Slow:
                     break;
                 default:
                     enemyHp -= damage;

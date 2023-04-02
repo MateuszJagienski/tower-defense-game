@@ -15,7 +15,7 @@ MonoBehaviour:
   PartWave:
   - Quantity: 5000
     TimeBetweenSpawn: 2
-    EnemyModelType: 5
+    EnemyModelType: 7
   - Quantity: 0
     TimeBetweenSpawn: 0
     EnemyModelType: 0

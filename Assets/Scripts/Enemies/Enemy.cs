@@ -7,7 +7,7 @@ namespace Assets.Scripts.Enemies
         public int Hp => EnemyData.Hp;
         public EnemyModelType EnemyModelType => EnemyData.EnemyModelType;
         public float Speed => EnemyData.Speed;
-        public EnemyModelType NextEnemyModelType => EnemyData.EnemyModelType;
+        public EnemyModelType NextEnemyModelType => EnemyData.NextEnemyModelType;
         public int NextQuantity => EnemyData.NextQuantity;
         public EnemyType EnemyType = EnemyType.BASIC; // todo()
 
