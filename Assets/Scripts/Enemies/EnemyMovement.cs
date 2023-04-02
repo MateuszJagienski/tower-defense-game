@@ -22,6 +22,9 @@ namespace Assets.Scripts.Enemies
             waypoints = waypointsScript.AllWaypoints;
         }
 
+        /// <summary>
+        /// todo() fix trigger when enemy broke, should trigger only on spawn
+        /// </summary>
         private void OnEnable()
         {
             path = _staticPath++;

@@ -31,7 +31,7 @@ namespace Assets.Scripts.Enemies
         /// <summary>
         /// Spawns enemy children based on current enemy model and NextQuantity parameter.
         /// Change spawning direction if enemy reached waypoint.
-        /// todo() spawning by given parameters
+        /// todo() spawning by given parameters, fix spawns current model not next model
         /// </summary>
         public void SpawnChildren()
         {
