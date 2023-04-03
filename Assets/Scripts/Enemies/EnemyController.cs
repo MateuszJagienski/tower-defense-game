@@ -28,12 +28,24 @@ namespace Assets.Scripts.Enemies
         }
 
         #region Spawning enemy children
+        // todo() refactor
+        private EnemyModelType emt;
+        public void SpawnChildren(EnemyModelType enemyModelType)
+        {
+            emt = enemyModelType;
+            SpawnChildren1(emt);
+        }
+        public void SpawnChildren()
+        {
+            emt = currentActiveEnemyModelType;
+            SpawnChildren1(emt);
+        }
         /// <summary>
         /// Spawns enemy children based on current enemy model and NextQuantity parameter.
         /// Change spawning direction if enemy reached waypoint.
         /// todo() spawning by given parameters, fix spawns current model not next model
         /// </summary>
-        public void SpawnChildren()
+        private void SpawnChildren1(EnemyModelType em)
         {
             var index = CurrentWaypointIndex;
             var enemyMovement = GetComponent<EnemyMovement>();
@@ -46,18 +58,29 @@ namespace Assets.Scripts.Enemies
                 // check if enemy reached waypoint
                 if (WaypointReached(index, prevWaypoint, spawnPosition, spawnDirection.magnitude))
                 {
-                    // change spawning direction
-                    var waypoint = prevWaypoint;
-                    prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
-                    spawnDirection = (prevWaypoint - waypoint).normalized;
-                    spawnPosition = waypoint;
+                    spawnDirection = ChangeDirection(enemyMovement, ref prevWaypoint, ref index);
                 }
 
                 spawnPosition.y = transform.position.y;
-                SpawnSingleEnemy(path, index, spawnPosition);
+                SpawnSingleEnemy(path, index, spawnPosition, em);
                 spawnPosition += spawnDirection;
             }
         }
+
+        private static Vector3 ChangeDirection(EnemyMovement enemyMovement, ref Vector3 prevWaypoint, ref int index)
+        {
+            // change spawning direction
+            var waypoint = prevWaypoint;
+            prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
+            var spawnDirection = (prevWaypoint - waypoint).normalized;
+            var spawnPosition = waypoint;
+            return spawnDirection;
+        }
+
+        // get path, index, spawnposition
+
+
+
 
         /// <summary>
         /// Spawn one enemy child with inherited properties and sets IgnoreCollision to prevent being hit by the same bullet twice. 
@@ -66,9 +89,9 @@ namespace Assets.Scripts.Enemies
         /// <param name="index"></param>
         /// <param name="spawnPosition"></param>
         /// <returns></returns>
-        private EnemyController SpawnSingleEnemy(int path, int index, Vector3 spawnPosition)
+        private EnemyController SpawnSingleEnemy(int path, int index, Vector3 spawnPosition, EnemyModelType enemyModelType)
         {
-            var childEnemy = enemySpawner.SpawnEnemy(currentActiveModel.NextEnemyModelType, spawnPosition);
+            var childEnemy = enemySpawner.SpawnEnemy(enemyModelType, spawnPosition);
             Physics.IgnoreCollision(colliderBullet, childEnemy.GetComponent<Collider>());
             childEnemy.CurrentWaypointIndex = index + 1;
             childEnemy.GetComponent<EnemyMovement>().Path = path;
