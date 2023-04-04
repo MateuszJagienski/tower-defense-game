@@ -9,8 +9,6 @@ namespace Assets.Scripts.Towers
 
         private void Update()
         {
-            RemoveInactiveTargets();
-
             if (Targetter.Targets.Count <= 0 || IsAtacking) return;
             IsAtacking = true;
             AttackEnemy();

@@ -57,7 +57,6 @@ namespace Assets.Scripts.Enemies
         /// </summary>
         private void MoveTowardsWaypoints()
         {
-            Debug.Log($"path: {Path}, enemyCtr: {enemyController.CurrentWaypointIndex}, waypoins.count{waypoints.Count}, Waypoinscount{waypoints[1].Waypoints.Count}");
             var currentWaypoint = waypoints[Path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
             var currentPosition = transform.position;
             var distance = Vector3.Distance(new Vector3(currentPosition.x, 0, currentPosition.z), new Vector3(currentWaypoint.x, 0, currentWaypoint.z));

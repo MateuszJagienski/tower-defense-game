@@ -121,7 +121,6 @@ namespace Assets.Scripts.Enemies
             currentActiveEnemyModelType = enemyModelType;
             if (currentActiveModel != null) EnemyPool.Add(currentActiveModel.EnemyModelType, currentActiveModel.gameObject.GetComponent<Enemy>());
             var enemy = EnemyPool.Get(currentActiveEnemyModelType);
-            Debug.Log("enemy pool: " + (enemy == null));
             PlaceEnemy(enemy);
 
             return this;
@@ -153,11 +152,6 @@ namespace Assets.Scripts.Enemies
         {
             transform.localScale = Vector3.one;
             CurrentWaypointIndex = 0;
-        }
-
-        private void OnDestroy()
-        {
-            Debug.Log($"Enemy controller OnDestroy: {this}");
         }
 
         public void DeactivateEnemy()

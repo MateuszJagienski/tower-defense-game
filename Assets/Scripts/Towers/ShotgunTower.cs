@@ -9,13 +9,10 @@ namespace Assets.Scripts.Towers
 
         private void Update()
         {
-            RemoveInactiveTargets();
-
-            if (Targetter.Targets.Count > 0 && !IsAtacking)
-            {
-                IsAtacking = true;
-                AttackEnemy();
-            }
+            if (Targetter.Targets.Count <= 0 || IsAtacking) return;
+            
+            IsAtacking = true;
+            AttackEnemy();
         }
 
         private void AttackEnemy()
@@ -28,8 +25,9 @@ namespace Assets.Scripts.Towers
             while (Targetter.Targets.Count > 0)
             {
                 CurrentTarget = Targetter.FindTarget(AttackType);
+
                 //Vector3 rotatedVector = currentTarget.transform.position - transform.position;
-                for (var i = 0; i < numberOfBullets; i++)
+                for (var i = 0; i < numberOfBullets && CurrentTarget != null; i++)
                 {
                     var rotatedVector = CurrentTarget.transform.position - transform.position;
 
@@ -40,6 +38,7 @@ namespace Assets.Scripts.Towers
                     rotatedVector = Quaternion.AngleAxis(degree, Vector3.up) * rotatedVector;
                     PrepareBullet(transform.position, rotatedVector);
                 }
+
                 yield return new WaitForSeconds(1 / Tower.AttackSpeed);
             }
             IsAtacking = false;

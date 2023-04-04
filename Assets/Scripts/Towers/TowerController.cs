@@ -13,15 +13,10 @@ namespace Assets.Scripts.Towers
         [SerializeField] private List<GameObject> models;
 
         protected GameObject CurrentTarget;
-
         protected bool IsAtacking = false;
         protected GameObject ActiveBullet;
-
         protected Tower Tower;
-
-
         protected AttackType AttackType;
-
 
         // Start is called before the first frame update
         protected virtual void Start()
@@ -40,33 +35,28 @@ namespace Assets.Scripts.Towers
         {
         }
 
-        public void PrepareBullet(Vector3 startedPostion, Transform target, BulletMovementType bulletMovementType)
+        public void PrepareBullet(Vector3 startedPosition, Transform target, BulletMovementType bulletMovementType)
         {
             if (target == null)
             {
                 return;
             }
             ActiveBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.LookRotation(target.position));
-            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPostion);
+            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPosition);
             ActiveBullet.GetComponent<BulletController>().SetTargetInfo(target);
             ActiveBullet.GetComponent<BulletController>().SetBulletMovementType(bulletMovementType);
 
         }
 
         // requires target direction vector, currentTarget.transform.position - transform.position;
-        public void PrepareBullet(Vector3 startedPostion, Vector3 targetDirection)
+        public void PrepareBullet(Vector3 startedPosition, Vector3 targetDirection)
         {
             ActiveBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.identity);
-            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPostion);
+            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPosition);
 
             ActiveBullet.GetComponent<BulletController>().SetBulletMovementType(BulletMovementType.Straight);
             ActiveBullet.GetComponent<BulletController>().SetShotDirection(targetDirection);
 
-        }
-        
-        public void RemoveInactiveTargets()
-        {
-            Targetter.Targets.RemoveAll(i => i == null || !i.activeInHierarchy);
         }
 
         public void SellTower(Tower tower)
