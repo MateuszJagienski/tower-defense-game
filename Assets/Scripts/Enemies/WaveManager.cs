@@ -11,6 +11,8 @@ namespace Assets.Scripts.Enemies
 {
     public class WaveManager : MonoBehaviour
     {
+        public static Action OnNewEnemySpawn;
+
         private int maxNumberOfWaves;
         private int currentWave;
         public bool IsRunning { get; private set; }

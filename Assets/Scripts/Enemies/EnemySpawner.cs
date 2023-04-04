@@ -41,7 +41,9 @@ namespace Assets.Scripts.Enemies
         public void SpawnEnemy(EnemyModelType enemyModelType)
         {
             pool.Get(out var en);
-            var spawn = en.GetComponent<EnemyMovement>().GetCurrentWaypoint(en.CurrentWaypointIndex);
+            var enemyMovement = en.GetComponent<EnemyMovement>();
+            enemyMovement.SetPath();
+            var spawn = enemyMovement.GetCurrentWaypoint(en.CurrentWaypointIndex);
             en.transform.position = spawn;
             en.ActivateEnemyByModelType(enemyModelType);
             //var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);

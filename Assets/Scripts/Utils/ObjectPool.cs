@@ -52,7 +52,9 @@ namespace Assets.Scripts.Utils
         {
             if (!Pool.TryGetValue(key, out var poolableObjects)) return null;
 
+
             var poolableObj = poolableObjects.First();
+
             // Get existing enemy data
             poolableObjects.Remove(poolableObj);
             poolableObj.gameObject.SetActive(true);

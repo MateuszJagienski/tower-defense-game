@@ -37,7 +37,7 @@ namespace Assets.Scripts.Enemies
         }
         public void SpawnChildren()
         {
-            emt = currentActiveEnemyModelType;
+            emt = CurrentActiveEnemy.NextEnemyModelType;
             SpawnChildren1(emt);
         }
         /// <summary>
@@ -73,7 +73,6 @@ namespace Assets.Scripts.Enemies
             var waypoint = prevWaypoint;
             prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
             var spawnDirection = (prevWaypoint - waypoint).normalized;
-            var spawnPosition = waypoint;
             return spawnDirection;
         }
 
@@ -94,7 +93,7 @@ namespace Assets.Scripts.Enemies
             var childEnemy = enemySpawner.SpawnEnemy(enemyModelType, spawnPosition);
             Physics.IgnoreCollision(colliderBullet, childEnemy.GetComponent<Collider>());
             childEnemy.CurrentWaypointIndex = index + 1;
-            childEnemy.GetComponent<EnemyMovement>().Path = path;
+            childEnemy.GetComponent<EnemyMovement>().SetPath(path);
             return childEnemy;
         }
 
@@ -189,7 +188,6 @@ namespace Assets.Scripts.Enemies
 
             currentActiveModel.GetComponent<IEnemyDamage>().TakeDamage(bullet.Damage, bullet.BulletType);
 
-            bulletController.EnemyHit();
             bullet.TakeDamage(hp, currentActiveModel.EnemyType);
         }
 

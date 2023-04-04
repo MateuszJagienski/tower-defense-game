@@ -16,7 +16,6 @@ public class NewTestScript
         var gameObject = new GameObject();
         var enemyMovement = gameObject.AddComponent<EnemyMovement>();
         var enemyController = gameObject.AddComponent<EnemyController>();
-        enemyMovement.Path = 0;
 
         // Set the current waypoint index to 0, so the enemy will move towards the first waypoint
         enemyController.CurrentWaypointIndex = 0;

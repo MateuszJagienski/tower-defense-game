@@ -8,26 +8,40 @@ namespace Assets.Scripts.Enemies
         private EnemyController enemyController;
         private List<SingleWaypoints> waypoints;
         private Waypoints waypointsScript;
-        private int path;
+
         private float traveledDistance;
         /// <summary>
         /// Responsible for equally distributed paths for enemies.
         /// </summary>
         private static int _staticPath = 0;
-        public int Path { get => path; set => path = value; }
+
+        public int Path;
         void Awake()
         {
             enemyController = gameObject.GetComponent<EnemyController>();
             waypointsScript = GameObject.Find("Waypoints").GetComponent<Waypoints>();
             waypoints = waypointsScript.AllWaypoints;
+
         }
 
-        /// <summary>
-        /// todo() fix trigger when enemy broke, should trigger only on spawn
+        /*        /// <summary>
+        /// todo() fix trigger when enemy broke, should trigger only on spawn, idk how to solve this
         /// </summary>
         private void OnEnable()
         {
-            path = _staticPath++;
+            if (enemyController.CurrentWaypointIndex == 0)
+                path = _staticPath++;
+            if (_staticPath == waypoints.Count) _staticPath = 0;
+        }
+*/
+        public void SetPath(int path)
+        {
+            Path = path;
+        }
+
+        public void SetPath()
+        {
+            Path = _staticPath++;
             if (_staticPath == waypoints.Count) _staticPath = 0;
         }
 
@@ -43,13 +57,14 @@ namespace Assets.Scripts.Enemies
         /// </summary>
         private void MoveTowardsWaypoints()
         {
-            var currentWaypoint = waypoints[path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
+            Debug.Log($"path: {Path}, enemyCtr: {enemyController.CurrentWaypointIndex}, waypoins.count{waypoints.Count}, Waypoinscount{waypoints[1].Waypoints.Count}");
+            var currentWaypoint = waypoints[Path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
             var currentPosition = transform.position;
             var distance = Vector3.Distance(new Vector3(currentPosition.x, 0, currentPosition.z), new Vector3(currentWaypoint.x, 0, currentWaypoint.z));
             if (distance < 0.1f)
             {
                 enemyController.CurrentWaypointIndex++;
-                if (enemyController.CurrentWaypointIndex == waypoints[path].Waypoints.Count)
+                if (enemyController.CurrentWaypointIndex == waypoints[Path].Waypoints.Count)
                 {
                     enemyController.DeactivateEnemy();
                     return;
@@ -59,7 +74,7 @@ namespace Assets.Scripts.Enemies
 
 
             // 
-            currentWaypoint = waypoints[path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
+            currentWaypoint = waypoints[Path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
 
             var step = enemyController.CurrentActiveEnemy.Speed * Time.deltaTime;
             traveledDistance += step;
@@ -69,12 +84,12 @@ namespace Assets.Scripts.Enemies
         public Vector3 GetCurrentWaypoint(int index)
         {
             if (index < 0) index = 0;
-            return waypoints[path].Waypoints[index].transform.position;
+            return waypoints[Path].Waypoints[index].transform.position;
         }
 
         public float GetDistanceToEnd()
         {
-            return Waypoints.WaypointsDistance[path] - traveledDistance;
+            return Waypoints.WaypointsDistance[Path] - traveledDistance;
         }
     }
 }
