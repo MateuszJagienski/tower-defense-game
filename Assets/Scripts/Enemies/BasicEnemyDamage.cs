@@ -42,6 +42,7 @@ namespace Assets.Scripts.Enemies
                     enemyController.CurrentWaypointIndex = 0;
                     break;
                 case BulletType.Slow:
+                    enemyController.ActivateEnemyByModelType(EnemyModelType.Red); // todo()
                     break;
                 default:
                     enemyHp -= damage;

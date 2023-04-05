@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8562908044455453029, guid: 57727d1f0d1e4eb4192c0aec5880df71,
@@ -69,6 +70,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2733173034034685642, guid: 57727d1f0d1e4eb4192c0aec5880df71, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8562908044455453034, guid: 57727d1f0d1e4eb4192c0aec5880df71,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3240881656496961528}
   m_SourcePrefab: {fileID: 100100000, guid: 57727d1f0d1e4eb4192c0aec5880df71, type: 3}
 --- !u!1 &4591550504894369331 stripped
 GameObject:
@@ -88,12 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2490fdbc16b37f742bcb301f22d87fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesModels:
-  - {fileID: 8310142262337368455, guid: 6f932f269bf2e1d43a7c449d3619077d, type: 3}
-  - {fileID: 1514347516570088248, guid: de116f2483568ce449629ff495c42790, type: 3}
-  - {fileID: 5416865381455089053, guid: ad3ef02ec61c42f45a73ce0dec6ea1bc, type: 3}
-  - {fileID: 4775816741032639595, guid: 6808717484b1863428c9344b4efdef8c, type: 3}
-  - {fileID: 4813615341588903944, guid: fbec428104b32a249a444fd95aa3b0ce, type: 3}
-  - {fileID: 6629996601370829646, guid: eed58de1a20bc8c4581fe66c0ccc14ed, type: 3}
-  - {fileID: 2144273871402491061, guid: a4f2b73342f93bb449efba3ad30a9abf, type: 3}
-  - {fileID: 5286495347650399490, guid: 1e9d868667fc3e745b8816166698e28b, type: 3}
+  swellTickRange: 0
+  swellSpeed: 0
+  splashDamage: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 0

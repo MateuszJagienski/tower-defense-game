@@ -60,9 +60,15 @@ namespace Assets.Scripts.Enemies
             return en;
         }
 
+
         public void Release(EnemyController enemyController)
         {
             pool.Release(enemyController);
+        }
+
+        public void SpawnTest()
+        {
+            SpawnEnemy(EnemyModelType.SlowedWhite);
         }
 
         private EnemyController GetEnemyByModelType(EnemyModelType enemyModelType) 

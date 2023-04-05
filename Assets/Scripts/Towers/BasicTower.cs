@@ -9,7 +9,6 @@ namespace Assets.Scripts.Towers
         private void Update()
         {
             base.Update();
-            Debug.Log($"tc {Targetter.Targets.Count}, isa {IsAtacking}");
             if (Targetter.Targets.Count > 0 && !IsAtacking)
             {
                 IsAtacking = true;

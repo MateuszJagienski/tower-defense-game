@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: AAAA
   m_EditorClassIdentifier: 
   PartWave:
-  - Quantity: 5000
-    TimeBetweenSpawn: 2
-    EnemyModelType: 7
-  - Quantity: 0
-    TimeBetweenSpawn: 0
-    EnemyModelType: 0
+  - Quantity: 5
+    TimeBetweenSpawn: 0.5
+    EnemyModelType: 12
+  - Quantity: 150
+    TimeBetweenSpawn: 0.1
+    EnemyModelType: 6
   - Quantity: 0
     TimeBetweenSpawn: 0
     EnemyModelType: 0

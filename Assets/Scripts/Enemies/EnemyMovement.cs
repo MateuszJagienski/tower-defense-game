@@ -71,8 +71,6 @@ namespace Assets.Scripts.Enemies
             }
             enemyController.transform.LookAt(currentWaypoint);
 
-
-            // 
             currentWaypoint = waypoints[Path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
 
             var step = enemyController.CurrentActiveEnemy.Speed * Time.deltaTime;

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Enemies
         /// Change spawning direction if enemy reached waypoint.
         /// todo() spawning by given parameters, fix spawns current model not next model
         /// </summary>
-        private void SpawnChildren1(EnemyModelType em)
+        private void SpawnChildren1(EnemyModelType enemyModelType)
         {
             var index = CurrentWaypointIndex;
             var enemyMovement = GetComponent<EnemyMovement>();
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Enemies
                 }
 
                 spawnPosition.y = transform.position.y;
-                SpawnSingleEnemy(path, index, spawnPosition, em);
+                SpawnSingleEnemy(path, index, spawnPosition, enemyModelType);
                 spawnPosition += spawnDirection;
             }
         }
@@ -156,7 +156,6 @@ namespace Assets.Scripts.Enemies
 
         public void DeactivateEnemy()
         {
-            //  ObjectPool.Add(currentActiveModel.ID, currentActiveModel.gameObject);
             enemySpawner.Release(this);
         }
 

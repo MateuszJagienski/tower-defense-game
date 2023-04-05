@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27171f3d0538e3648a7ab93445081829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   EnemyData: {fileID: 11400000, guid: 81772403093ce2f4db22f4a6acc32446, type: 2}
 --- !u!114 &6206981095562394676
 MonoBehaviour:
@@ -111,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2490fdbc16b37f742bcb301f22d87fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swellRange: 5
+  swellTickRange: 5
   swellSpeed: 0.5
-  damage: 0
+  splashDamage: 0
 --- !u!1 &5037290402293587007
 GameObject:
   m_ObjectHideFlags: 0

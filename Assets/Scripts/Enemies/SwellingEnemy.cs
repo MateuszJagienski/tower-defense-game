@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Bullets;
+﻿using Assets.Scripts.Bullets;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
@@ -10,43 +9,50 @@ namespace Assets.Scripts.Enemies
         [SerializeField] private float swellSpeed;
         [SerializeField] private int splashDamage;
 
+        [SerializeField] LayerMask layer;
+
         private EnemyController enemyController;
         private int counter;
-
 
         private void OnEnable()
         {
             counter = 0;
             gameObject.transform.localScale = Vector3.one;
-            enemyController = GetComponentInParent<EnemyController>();
+/*            enemyController = GetComponentInParent<EnemyController>();
             if (enemyController == null)
             {
                 throw new Exception("enemyController is null");
             }
-        }
+*/        }
 
-    
         public void TakeDamage(int damage, BulletType bulletType)
         {
-         //   transform.localScale += new Vector3(swellSpeed, swellSpeed, swellSpeed);
-           // transform.position += new Vector3(0, swellSpeed, 0);
-            if (++counter != swellTickRange) return;
-            
+
+            if (enemyController == null)
+            {
+                enemyController = GetComponentInParent<EnemyController>();
+            }
+
+            if (counter > swellTickRange)
+            {
+                enemyController.Kill();
+                return;
+            }
+
+            transform.localScale += new Vector3(swellSpeed, swellSpeed, swellSpeed);
+            transform.position += new Vector3(0, swellSpeed, 0);
+            if (++counter <= swellTickRange) return;
             
             var radius = swellTickRange * swellSpeed;
-            // gameObject.layer = 12; to avoid collision with itself
-            var originalLayer = gameObject.layer;
-            gameObject.layer = 12;
-            var colliders = Physics.OverlapSphere(transform.position, radius, 1 << 13);
-            gameObject.layer = originalLayer;
+            Debug.Log("s1");
+            var colliders = Physics.OverlapSphere(transform.position, radius);
 
             foreach (var ec in colliders)
             {
                 if (!ec.TryGetComponent(out EnemyController en)) return;
-
+                Debug.Log("s2");
                 en.CallTakeDamage(damage, bulletType);
             }
         }
-
     }
 }

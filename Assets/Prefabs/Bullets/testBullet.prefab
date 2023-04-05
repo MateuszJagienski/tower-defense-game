@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cf015afff8a2743a65036ef6130a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletType: 0
+  BulletType: 4
   bulletData: {fileID: 11400000, guid: 81fbc1e6808564d4eaedb0cd1b39bb06, type: 2}
 --- !u!114 &7349092027595971121
 MonoBehaviour:

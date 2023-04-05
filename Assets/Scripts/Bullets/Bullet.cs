@@ -12,7 +12,7 @@ namespace Assets.Scripts.Bullets
         public int Range => bulletData.Range[BulletLvl];
         private int damage;
         public int Damage => damage;
-        public BulletType BulletType = BulletType.Basic; // todo() 
+        public BulletType BulletType => bulletData.BulletType;
 
         [SerializeField]
         private BulletData bulletData;

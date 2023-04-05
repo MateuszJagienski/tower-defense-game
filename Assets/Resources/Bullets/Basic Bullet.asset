@@ -17,4 +17,4 @@ MonoBehaviour:
   Range: 0a000000
   SplashRange: 00000000
   SplashDamage: 00000000
-  BulletType: 0
+  BulletType: 3

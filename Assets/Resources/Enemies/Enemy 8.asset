@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy 8
   m_EditorClassIdentifier: 
   Hp: 12
-  Speed: 5
+  Speed: 2
   EnemyModelType: 12
   NextEnemyModelType: 7
   NextQuantity: 2
