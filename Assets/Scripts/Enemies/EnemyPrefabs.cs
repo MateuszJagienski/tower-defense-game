@@ -8,17 +8,12 @@ namespace Assets.Scripts.Enemies
     {
         private static readonly Dictionary<EnemyModelType, Enemy> EnemyModels;
 
-        static EnemyPrefabs()
-        {
+        static EnemyPrefabs() =>
             EnemyModels = Resources.LoadAll("Models/Enemies", typeof(Enemy))
                 .Cast<Enemy>()
                 .ToDictionary(e => e.EnemyModelType, e => e);
-        }
-
-        public static Enemy GetEnemyByType(EnemyModelType enemyModelType)
-        {
-            return EnemyModels[enemyModelType];
-        }
+        
+        public static Enemy GetEnemyByType(EnemyModelType enemyModelType) => EnemyModels[enemyModelType];
     }
 }
 

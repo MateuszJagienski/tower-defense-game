@@ -70,10 +70,5 @@ namespace Assets.Scripts.Enemies
         {
             SpawnEnemy(EnemyModelType.SlowedWhite);
         }
-
-        private EnemyController GetEnemyByModelType(EnemyModelType enemyModelType) 
-        {
-            return enemyController.ActivateEnemyByModelType(enemyModelType);
-        }
     }
 }
