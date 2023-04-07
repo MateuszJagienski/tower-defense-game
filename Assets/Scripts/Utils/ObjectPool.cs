@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Utils
 {
-    public class ObjectPool<TKey, TValue> where TValue : Component
+    public abstract class ObjectPool<TKey, TValue> where TValue : Component
     {
         private static readonly Dictionary<TKey, List<TValue>> Pool = new Dictionary<TKey, List<TValue>>();
 
