@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Assets.Scripts.Enemies
 {
@@ -14,7 +15,6 @@ namespace Assets.Scripts.Enemies
         {
             WaypointsDistance = new Dictionary<int, float>();
             CalculateWaypointsDistance();
-            Debug.Log(WaypointsDistance[0]);
         }
 
         [ContextMenu("Fill waypoints")]
@@ -25,6 +25,15 @@ namespace Assets.Scripts.Enemies
             foreach (var path in paths)
             {
                 var list = path.transform.Cast<Transform>().ToList();
+                foreach (var e in list)
+                {
+                    e.TryGetComponent<MeshFilter>(out var mf);
+                    e.TryGetComponent<BoxCollider>(out var mc);
+                    e.TryGetComponent<MeshRenderer>(out var mr);
+                    DestroyImmediate(mf);
+                    DestroyImmediate(mr);
+                    DestroyImmediate(mc);
+                }
                 AllWaypoints.Add(new SingleWaypoints(list));
             }
         }
