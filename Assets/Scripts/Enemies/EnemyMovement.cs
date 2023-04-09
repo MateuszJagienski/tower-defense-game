@@ -60,7 +60,7 @@ namespace Assets.Scripts.Enemies
             var currentWaypoint = waypoints[Path].Waypoints[enemyController.CurrentWaypointIndex].transform.position;
             var currentPosition = transform.position;
             var distance = Vector3.Distance(new Vector3(currentPosition.x, 0, currentPosition.z), new Vector3(currentWaypoint.x, 0, currentWaypoint.z));
-            if (distance < 0.1f)
+            if (distance < 0.01f)
             {
                 enemyController.CurrentWaypointIndex++;
                 if (enemyController.CurrentWaypointIndex == waypoints[Path].Waypoints.Count)

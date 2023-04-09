@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Bullets;
 using Assets.Scripts.Economy;
 using System;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
@@ -58,7 +59,7 @@ namespace Assets.Scripts.Enemies
                 // check if enemy reached waypoint
                 if (WaypointReached(index, prevWaypoint, spawnPosition, spawnDirection.magnitude))
                 {
-                    spawnDirection = ChangeDirection(enemyMovement, ref prevWaypoint, ref index);
+                    spawnDirection = ChangeDirection(enemyMovement, ref prevWaypoint, ref index, out spawnPosition);
                 }
 
                 spawnPosition.y = transform.position.y;
@@ -67,12 +68,13 @@ namespace Assets.Scripts.Enemies
             }
         }
 
-        private static Vector3 ChangeDirection(EnemyMovement enemyMovement, ref Vector3 prevWaypoint, ref int index)
+        private static Vector3 ChangeDirection(EnemyMovement enemyMovement, ref Vector3 prevWaypoint, ref int index, out Vector3 spawnPosition)
         {
             // change spawning direction
             var waypoint = prevWaypoint;
             prevWaypoint = enemyMovement.GetCurrentWaypoint(--index);
             var spawnDirection = (prevWaypoint - waypoint).normalized;
+            spawnPosition = waypoint;
             return spawnDirection;
         }
 

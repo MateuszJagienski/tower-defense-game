@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Utils
 {
-    public abstract class ObjectPool<TKey, TValue> where TValue : Component
+    public abstract class ObjectPool<TKey, TValue> where TValue : Component 
     {
         private static readonly Dictionary<TKey, List<TValue>> Pool = new Dictionary<TKey, List<TValue>>();
 
@@ -52,7 +52,6 @@ namespace Assets.Scripts.Utils
         {
             if (!Pool.TryGetValue(key, out var poolableObjects)) return null;
 
-
             var poolableObj = poolableObjects.First();
 
             // Get existing enemy data
@@ -62,6 +61,5 @@ namespace Assets.Scripts.Utils
                 Pool.Remove(key);
             return poolableObj;
         }
-
     }
 }
