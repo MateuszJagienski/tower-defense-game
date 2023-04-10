@@ -59,6 +59,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -128,7 +129,7 @@ GameObject:
   - component: {fileID: 675300167}
   - component: {fileID: 675300166}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: StartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,6 +630,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 7
   m_TargetDisplay: 0
@@ -684,12 +686,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e44130d62bc90f418c0d2bed2bf0223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerName: {fileID: 6160818143514383065}
-  description: {fileID: 6160818144275984650}
-  upgradeDescription: {fileID: 0}
-  sellButton: {fileID: 6160818143279803624}
-  upgradeButton: {fileID: 6160818143135497349}
-  gameUI: {fileID: 6160818143634466134}
+  TowerName: {fileID: 6160818143514383065}
+  Description: {fileID: 6160818144275984650}
+  UpgradeDescription: {fileID: 0}
+  SellButton: {fileID: 6160818143279803624}
+  UpgradeButton: {fileID: 6160818143135497349}
+  gameUi: {fileID: 6160818143634466134}
   canvas: {fileID: 6160818142287189878}
   rangeGhost: {fileID: 4556004327639235489, guid: f1b8bf0c1b876c14690a0d63ed8f3bbf,
     type: 3}
@@ -753,6 +755,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2356,6 +2359,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2429,6 +2433,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+  startText: {fileID: 675300166}
 --- !u!1 &6160818143820054905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,6 +2920,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

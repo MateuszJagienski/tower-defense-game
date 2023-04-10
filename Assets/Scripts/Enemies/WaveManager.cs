@@ -11,13 +11,15 @@ namespace Assets.Scripts.Enemies
 {
     public class WaveManager : MonoBehaviour
     {
+        public event Action GameWon;
+        public static event Action OnGameStart;
+
+
         private int maxNumberOfWaves;
         private int currentWave;
         public bool IsRunning { get; private set; }
         public List<WaveData> Waves;
-        public Text StartText;
 
-        public event Action GameWon;
 
 
         private static WaveManager _instance;
@@ -45,7 +47,7 @@ namespace Assets.Scripts.Enemies
             {
                 SpawnEnemies();
                 IsRunning = true;
-                StartText.enabled = false;
+                OnGameStart?.Invoke();
             }
             if (currentWave >= maxNumberOfWaves && !IsRunning)
             {

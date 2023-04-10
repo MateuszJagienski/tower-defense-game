@@ -37,7 +37,7 @@ namespace Assets.Scripts.Bullets
                     FollowEnemy(Target);
                     break;
                 case BulletMovementType.Straight:
-                    AttackInStaightDirection(CurrentDirection);
+                    AttackInStraightDirection(CurrentDirection);
                     break;
                 case BulletMovementType.VerticallyLaunched:
                     //
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Bullets
             var step = Bullet.Speed * Time.deltaTime;
             step = Mathf.Clamp01(step);
 
-            if (target == null || target.gameObject.activeInHierarchy)
+            if (target.gameObject.activeInHierarchy)
             {
                 CurrentDirection = (target.position - StartedPosition).normalized;
                 transform.position = Vector3.MoveTowards(transform.position, target.position, step);
@@ -63,7 +63,7 @@ namespace Assets.Scripts.Bullets
             DistanceBulletCanTravel();
         }
 
-        public void AttackInStaightDirection(Vector3 directionTarget)
+        public void AttackInStraightDirection(Vector3 directionTarget)
         {
             var direction = directionTarget;
             transform.position += direction * Bullet.Speed * Time.deltaTime;

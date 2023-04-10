@@ -28,20 +28,10 @@ namespace Assets.Scripts.UI
             towerPlacement = GameObject.Find("TowerPlacement").GetComponent<TowerPlacement>();
         }
 
-        void Update()
-        {
-            // Check if the left mouse button was clicked
-            if (!Input.GetMouseButtonDown(0)) return;
-            // Check if the mouse was clicked over a UI element
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("Clicked on the UI");
-            }
-        }
-
         public void BasicTower()
         {
             ChangeTower(basicTowerId);
+            Debug.Log("basic tower tsui");
         }
 
         public void ShotgunTower()
@@ -64,6 +54,7 @@ namespace Assets.Scripts.UI
         }
         private void ChangeTower(int towerId)
         {
+            Debug.Log("tsui change tower");
             var td = towersData.Find(it => it.Id == towerId);
             if (economySystem.CanAfford(td.PurchaseCost))
             {

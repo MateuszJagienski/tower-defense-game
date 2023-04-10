@@ -16,8 +16,8 @@ MonoBehaviour:
   - Quantity: 5
     TimeBetweenSpawn: 0.5
     EnemyModelType: 12
-  - Quantity: 150
-    TimeBetweenSpawn: 0.1
+  - Quantity: 5000
+    TimeBetweenSpawn: 2
     EnemyModelType: 6
   - Quantity: 0
     TimeBetweenSpawn: 0

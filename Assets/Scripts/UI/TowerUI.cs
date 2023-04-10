@@ -13,12 +13,9 @@ namespace Assets.Scripts.UI
         public Text UpgradeDescription;
         public Button SellButton;
         public Button UpgradeButton;
-        [SerializeField]
-        private GameUI gameUi;
-        [SerializeField]
-        private Canvas canvas;
-        [SerializeField]
-        private GameObject rangeGhost;
+        [SerializeField] private GameUI gameUi;
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private GameObject rangeGhost;
 
         private Tower tower;
         private TowerController towerController;
@@ -26,16 +23,9 @@ namespace Assets.Scripts.UI
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log("inside Start, TowerUI");
             gameUi.SelectionChanged += OnSelectionChanged;
             canvas.enabled = false;
             rangeGhost = Instantiate(rangeGhost);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
 
         void OnSelectionChanged(Tower tower)

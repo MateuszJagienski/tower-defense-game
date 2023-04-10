@@ -1,8 +1,10 @@
 using System;
+using Assets.Scripts.Enemies;
 using Assets.Scripts.Towers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
@@ -10,24 +12,21 @@ namespace Assets.Scripts.UI
     {
         public UnityEvent<Tower> OnSelection;
         public event Action<Tower> SelectionChanged;
-        [SerializeField]
-        private LayerMask layerMask;
+        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private Text startText;
 
         // Start is called before the first frame update
         void Start()
         {
-        
+            WaveManager.OnGameStart += () =>
+            {
+                startText.enabled = false;
+            };
         }
 
         // Update is called once per frame
         void Update()
         {
-    
-            //  if (Input.GetMouseButton(0))
-            //  {
-            //      TrySelectTower();
-            //  }
-
             // clicked once
             if (Input.GetMouseButtonDown(0))
             {
@@ -38,8 +37,7 @@ namespace Assets.Scripts.UI
         private void TrySelectTower()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
             {
                 Debug.Log(hit.collider);
                 var tower = hit.collider.GetComponent<Tower>();

@@ -13,8 +13,11 @@ namespace Assets.Scripts.Towers
             RemoveInactiveTargets();
         }
         
-        public void SetRange(float radius) => GetComponent<SphereCollider>().radius = radius;
-
+        public void SetRange(float radius)
+        {
+            if (!TryGetComponent<SphereCollider>(out var sc)) return;
+            sc.radius = radius;
+        }
         #region Find Target
         /// <summary>
         /// Finds target based on attack type, FindFirst by default

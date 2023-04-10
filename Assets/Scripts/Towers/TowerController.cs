@@ -1,6 +1,5 @@
 using Assets.Scripts.Bullets;
 using Assets.Scripts.Economy;
-using Assets.Scripts.Enemies;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,7 +40,7 @@ namespace Assets.Scripts.Towers
             {
                 return;
             }
-            ActiveBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.LookRotation(target.position));
+            ActiveBullet = Instantiate(bulletPrefab, startedPosition, Quaternion.LookRotation(target.position));
             ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPosition);
             ActiveBullet.GetComponent<BulletController>().SetTargetInfo(target);
             ActiveBullet.GetComponent<BulletController>().SetBulletMovementType(bulletMovementType);

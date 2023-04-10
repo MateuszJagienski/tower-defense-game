@@ -2,9 +2,8 @@
 
 namespace Assets.Scripts.Towers
 {
-    public class ProjectileLauncher : MonoBehaviour
+    public abstract class ProjectileLauncher : MonoBehaviour
     {
-
 
     }
 }
