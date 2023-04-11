@@ -6,27 +6,16 @@ namespace Assets.Scripts.Towers
 {
     public class BasicTower : TowerController
     {
-        private void Update()
+        protected override IEnumerator FireBullet()
         {
-            base.Update();
-            if (Targetter.Targets.Count > 0 && !IsAtacking)
-            {
-                IsAtacking = true;
-                AttackEnemy();
-            }
-        }
-
-        private void AttackEnemy()
-        {
-            StartCoroutine(FireBullet());
-        }
-
-        IEnumerator FireBullet()
-        {
-            while (Targetter.Targets.Count > 0)
+            while (Targetter.HasActiveTarget())
             {            
                 CurrentTarget = Targetter.FindTarget(AttackType);
-
+                if (CurrentTarget == null)
+                {
+                    Debug.Log("Cur target null");
+                    yield return null;
+                }
                 var direction = CurrentTarget.transform.position - transform.position;
                 //PrepareBullet(transform.position, direction, BulletMovementType.Straight);
                 //PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Straight); // for follow type, fix it later

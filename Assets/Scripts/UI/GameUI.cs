@@ -40,9 +40,8 @@ namespace Assets.Scripts.UI
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask))
             {
                 Debug.Log(hit.collider);
-                var tower = hit.collider.GetComponent<Tower>();
-                if (tower == null) return;
-                if (SelectionChanged != null) SelectionChanged(tower);
+                if (!hit.collider.TryGetComponent<Tower>(out var tower)) return;
+                SelectionChanged?.Invoke(tower);
                 OnSelection?.Invoke(tower);
             } 
             else if (!EventSystem.current.IsPointerOverGameObject())

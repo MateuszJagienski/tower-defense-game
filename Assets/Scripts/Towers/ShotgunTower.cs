@@ -5,24 +5,11 @@ namespace Assets.Scripts.Towers
 {
     public class ShotgunTower : TowerController
     {
-        private int numberOfBullets = 6;
+        [SerializeField] private int numberOfBullets = 6;
 
-        private void Update()
+        protected override IEnumerator FireBullet()
         {
-            if (Targetter.Targets.Count <= 0 || IsAtacking) return;
-            
-            IsAtacking = true;
-            AttackEnemy();
-        }
-
-        private void AttackEnemy()
-        {
-            StartCoroutine(FireBullet());
-        }
-
-        IEnumerator FireBullet()
-        {
-            while (Targetter.Targets.Count > 0)
+            while (Targetter.HasActiveTarget())
             {
                 CurrentTarget = Targetter.FindTarget(AttackType);
 

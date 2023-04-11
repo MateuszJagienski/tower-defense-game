@@ -25,3 +25,10 @@ MonoBehaviour:
   PurchaseCost: 900
   SellCost: 650
   Id: 2
+  Bullet: {fileID: 5064532118573540949, guid: 124074902e3f1e741ba9edc277d27a07, type: 3}
+  Targetter: {fileID: 3780798343706010392, guid: 4b8110e3cf88ddf44a28804ade16aeea,
+    type: 3}
+  TowerModels:
+  - {fileID: 5689239277144485862, guid: a6835c8ae67e59c448a2dc1873cc9eeb, type: 3}
+  - {fileID: 7909954796895256947, guid: 581dc38d9be88d84da817bd7b6c13af7, type: 3}
+  - {fileID: 8893599333982941153, guid: 97da012dcf1f13246bda634410b7182f, type: 3}

@@ -10,9 +10,8 @@ namespace Assets.Scripts.UI
     public class TowersShopUI : MonoBehaviour
     {
 
+        [SerializeField] private List<TowerData> towersData;
         private TowerPlacement towerPlacement;
-        [SerializeField]
-        private List<TowerData> towersData;
         // ???
         private int basicTowerId = 1;
         private int shotgunTowerId = 2;

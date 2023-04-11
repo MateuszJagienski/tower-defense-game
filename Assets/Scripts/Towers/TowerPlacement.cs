@@ -11,8 +11,8 @@ namespace Assets.Scripts.Towers
 
         [SerializeField] private LayerMask placementLayerMask;
         [SerializeField] private LayerMask collideLayers;
-        [SerializeField] List<GameObject> towers;
-        [SerializeField] List<GameObject> ghostTowers;
+        [SerializeField] private List<GameObject> towers;
+        [SerializeField] private List<GameObject> ghostTowers;
 
         private GameObject objectToSpawn;
         private GameObject ghostTower;
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Towers
             objectToSpawn = towers[index];
             range = objectToSpawn.GetComponent<Tower>().Range;
             ghostTower = Instantiate(ghostTowers[index], Input.mousePosition, Quaternion.identity);
-            // index 0 bo towerCopsule jest index 0 zmienic pozniej
+            // index 0 bo towerCopsule jest index 0 zmienic pozniej xD
             ghostTowerRange = Instantiate(ghostTowers[0], Input.mousePosition, Quaternion.identity);
         }
 

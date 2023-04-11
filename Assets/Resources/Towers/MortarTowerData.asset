@@ -19,3 +19,7 @@ MonoBehaviour:
   PurchaseCost: 1500
   SellCost: 1320
   Id: 4
+  Bullet: {fileID: 0}
+  Targetter: {fileID: 0}
+  TowerModels:
+  - {fileID: 0}

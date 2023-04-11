@@ -7,24 +7,9 @@ namespace Assets.Scripts.Towers
     {
         private int numberOfBullets = 8;
 
-        private void Update()
+        protected override IEnumerator FireBullet()
         {
-
-            if (Targetter.Targets.Count > 0 && !IsAtacking)
-            {
-                IsAtacking = true;
-                AttackEnemy();
-            }
-        }
-
-        private void AttackEnemy()
-        {
-            StartCoroutine(FireBullet());
-        }
-
-        IEnumerator FireBullet()
-        {
-            while (Targetter.Targets.Count > 0)
+            while (Targetter.HasActiveTarget())
             {
                 var target = FixedTarget();
                 Debug.Log(target);

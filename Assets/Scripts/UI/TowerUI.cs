@@ -61,13 +61,13 @@ namespace Assets.Scripts.UI
 
         public void SellButtonClicked()
         {
-            towerController.SellTower(tower);
+            towerController.SellTower();
             Hide();
         }
 
         public void UpgradeButtonClicked()
         {
-            towerController.UpgradeTower(tower);
+            towerController.UpgradeTower();
             var range = tower.GetComponent<Tower>().Range * 2;
             rangeGhost.transform.localScale = new Vector3(range, 0.1f, range);
         }

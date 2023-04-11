@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemies
 {
-    public class EnemyController : MonoBehaviour
-    {        
+    public class EnemyController : MonoBehaviour, IEnemyController
+    {
         public static event Action<EnemyController> OnEnemyDamaged;
 
         // current used enemy, used for access data not model
@@ -166,7 +166,7 @@ namespace Assets.Scripts.Enemies
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.TryGetComponent(out BulletController bulletController) || 
+            if (!other.gameObject.TryGetComponent(out BulletController bulletController) ||
                 !other.gameObject.TryGetComponent(out Bullet bullet) ||
                 !other.gameObject.TryGetComponent(out colliderBullet)) return;
 
@@ -174,7 +174,7 @@ namespace Assets.Scripts.Enemies
 
             OnEnemyDamaged?.Invoke(this);
 
-            currentActiveModel.GetComponent<IEnemyDamage>().TakeDamage(bullet.Damage, bullet.BulletType);
+            CallTakeDamage(bullet.Damage, bullet.BulletType);
 
             bullet.TakeDamage(hp, currentActiveModel.EnemyType);
         }

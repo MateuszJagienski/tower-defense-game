@@ -5,23 +5,11 @@ namespace Assets.Scripts.Towers
 {
     public class TackShooterTower : TowerController
     {
-        private int numberOfBullets = 8;
+        [SerializeField] private int numberOfBullets = 8;
 
-        private void Update()
+        protected override IEnumerator FireBullet()
         {
-            if (Targetter.Targets.Count <= 0 || IsAtacking) return;
-            IsAtacking = true;
-            AttackEnemy();
-        }
-
-        private void AttackEnemy()
-        {
-            StartCoroutine(FireBullet());
-        }
-
-        IEnumerator FireBullet()
-        {
-            while (Targetter.Targets.Count > 0)
+            while (Targetter.HasActiveTarget())
             {
                 var rotatedVector = transform.forward;
                 for (var i = 0; i < numberOfBullets; i++)

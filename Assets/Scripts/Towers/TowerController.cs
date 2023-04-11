@@ -1,90 +1,107 @@
 using Assets.Scripts.Bullets;
 using Assets.Scripts.Economy;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Towers
 {
-    public class TowerController : MonoBehaviour
+    [RequireComponent(typeof(Tower)), RequireComponent(typeof(SphereCollider))]
+    public abstract class TowerController : MonoBehaviour
     {
-        [SerializeField] protected Targetter Targetter;
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private List<GameObject> models;
-
+        protected GameObject BulletPrefab;
         protected GameObject CurrentTarget;
-        protected bool IsAtacking = false;
         protected GameObject ActiveBullet;
+        protected List<GameObject> Models = new List<GameObject>();
         protected Tower Tower;
+        protected ITargetter Targetter;
         protected AttackType AttackType;
+        protected bool IsAtacking = false;
+        
+        private int towerLvl;
+        private GameObject currentActiveModel;
 
-        // Start is called before the first frame update
         protected virtual void Start()
         {
-            
+
             Tower = GetComponent<Tower>();
+            var go = Instantiate(Tower.Targetter, transform.position, Quaternion.identity);
+            go.transform.parent = transform;
+            Targetter = go.GetComponent<Targetter>();
+            BulletPrefab = Tower.Bullet;
+
+            Models.AddRange(Tower.TowerModels);
             Targetter.SetRange(Tower.Range);
+            towerLvl = Tower.TowerLvl;
+
+            if (Models.Count <= 0) return;
             
-            if (models.Count <= 0) return;
+            currentActiveModel = Instantiate(Models[towerLvl++], transform.position, Quaternion.identity);
+            currentActiveModel.SetActive(true);
+            currentActiveModel.transform.parent = transform;
 
-            models.ForEach(x => x.SetActive(false));
-            models[0].SetActive(true);
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
+            if (!Targetter.HasActiveTarget() || IsAtacking) return;
+            IsAtacking = true;
+            AttackEnemy();
         }
 
-        public void PrepareBullet(Vector3 startedPosition, Transform target, BulletMovementType bulletMovementType)
+        private void AttackEnemy()
         {
-            if (target == null)
-            {
-                return;
-            }
-            ActiveBullet = Instantiate(bulletPrefab, startedPosition, Quaternion.LookRotation(target.position));
-            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPosition);
-            ActiveBullet.GetComponent<BulletController>().SetTargetInfo(target);
-            ActiveBullet.GetComponent<BulletController>().SetBulletMovementType(bulletMovementType);
+            StartCoroutine(FireBullet());
+        }
 
+        protected abstract IEnumerator FireBullet();
+
+        protected void PrepareBullet(Vector3 startedPosition, Transform target, BulletMovementType bulletMovementType)
+        {
+            ActiveBullet = Instantiate(BulletPrefab, startedPosition, Quaternion.LookRotation(target.position));
+            if (!ActiveBullet.TryGetComponent<BulletController>(out var bc)) return;
+            
+            bc.SetStartedPosition(startedPosition);
+            bc.SetTargetInfo(target);
+            bc.SetBulletMovementType(bulletMovementType);
         }
 
         // requires target direction vector, currentTarget.transform.position - transform.position;
-        public void PrepareBullet(Vector3 startedPosition, Vector3 targetDirection)
+        protected void PrepareBullet(Vector3 startedPosition, Vector3 targetDirection)
         {
-            ActiveBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), Quaternion.identity);
-            ActiveBullet.GetComponent<BulletController>().SetStartedPosition(startedPosition);
+            ActiveBullet = Instantiate(BulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), 
+                Quaternion.identity);
+            if (!ActiveBullet.TryGetComponent<BulletController>(out var bc)) return;
 
-            ActiveBullet.GetComponent<BulletController>().SetBulletMovementType(BulletMovementType.Straight);
-            ActiveBullet.GetComponent<BulletController>().SetShotDirection(targetDirection);
-
+            bc.SetStartedPosition(startedPosition);
+            bc.SetBulletMovementType(BulletMovementType.Straight);
+            bc.SetShotDirection(targetDirection);
         }
 
-        public void SellTower(Tower tower)
+        public void SellTower()
         {
-            EconomySystem.Instance.IncreaseGold(tower.SellCost);
+            EconomySystem.Instance.IncreaseGold(Tower.SellCost);
             gameObject.SetActive(false);
             Destroy(gameObject, 2);
             Debug.Log("selling tower");
         }
 
-        public void UpgradeTower(Tower tower)
+        public void UpgradeTower()
         {
             // load prefab
-            if (tower.TowerLvl >= models.Count - 1 || !EconomySystem.Instance.DecreaseGold(tower.UpgradeCost)) return;
+            if (towerLvl >= Models.Count || !EconomySystem.Instance.DecreaseGold(Tower.UpgradeCost)) return;
 
-            models[tower.TowerLvl].SetActive(false);
-            models[tower.TowerLvl + 1].SetActive(true);
-            tower.TowerLvl++;
-            Targetter.SetRange(tower.Range);
+            currentActiveModel.SetActive(false);
+            currentActiveModel = Instantiate(Models[towerLvl++], transform.position, Quaternion.identity);
+            currentActiveModel.SetActive(true);
+            currentActiveModel.transform.parent = transform;
+            Targetter.SetRange(Tower.Range);
+            Tower.TowerLvl++;
             // upgrade stats
             // flat stats: range, as, ad
             // abilities: piercing, explosion, splash, etc....
         }
 
-        public void SetAttackType(AttackType attackType)
-        {
-            this.AttackType = attackType;
-        } 
-
-
+        public void SetAttackType(AttackType attackType) => this.AttackType = attackType;
     }
 }

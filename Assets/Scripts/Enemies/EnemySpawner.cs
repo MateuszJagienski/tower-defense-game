@@ -5,10 +5,9 @@ namespace Assets.Scripts.Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyController enemyController;
+        [SerializeField] private EnemyController enemyController;
 
-        private ObjectPool<EnemyController> pool;
+        private static ObjectPool<EnemyController> _pool;
         private static EnemySpawner _instance;
 
         public static EnemySpawner Instance
@@ -26,7 +25,7 @@ namespace Assets.Scripts.Enemies
         // Start is called before the first frame update
         void Start()
         {
-            pool = new ObjectPool<EnemyController>(
+            _pool = new ObjectPool<EnemyController>(
                 () => Instantiate(enemyController, Vector3.zero, Quaternion.identity),
                 enemy => enemy.gameObject.SetActive(true),
                 enemy => enemy.gameObject.SetActive(false),
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Enemies
 
         public void SpawnEnemy(EnemyModelType enemyModelType)
         {
-            pool.Get(out var en);
+            _pool.Get(out var en);
             var enemyMovement = en.GetComponent<EnemyMovement>();
             enemyMovement.SetPath();
             var spawn = enemyMovement.GetCurrentWaypoint(en.CurrentWaypointIndex);
@@ -51,7 +50,7 @@ namespace Assets.Scripts.Enemies
         }
         public EnemyController SpawnEnemy(EnemyModelType enemyModelType, Vector3 spawnPosition)
         {
-            pool.Get(out var en);
+            _pool.Get(out var en);
             en.transform.position = spawnPosition;
             en.ActivateEnemyByModelType(enemyModelType);
             //var enemy = Instantiate(enemyController, spawnPosition, Quaternion.identity);
@@ -63,7 +62,7 @@ namespace Assets.Scripts.Enemies
 
         public void Release(EnemyController enemyController)
         {
-            pool.Release(enemyController);
+            _pool.Release(enemyController);
         }
 
         public void SpawnTest()

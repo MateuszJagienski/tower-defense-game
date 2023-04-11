@@ -4,21 +4,27 @@ using UnityEngine;
 
 namespace Assets.Scripts.Towers
 {
-    public class Targetter : MonoBehaviour
-    {
-        public List<GameObject> Targets { get; } = new List<GameObject>();
 
-        private void Update()
-        {
-            RemoveInactiveTargets();
-        }
-        
+    [RequireComponent(typeof(SphereCollider))]
+    public class Targetter : MonoBehaviour, ITargetter
+    {
+        private List<GameObject> targets = new();
+
         public void SetRange(float radius)
         {
             if (!TryGetComponent<SphereCollider>(out var sc)) return;
             sc.radius = radius;
         }
+
+        public bool HasActiveTarget()
+        {
+            RemoveInactiveTargets();
+            return targets.Count > 0;
+        }
+
         #region Find Target
+
+        private GameObject defaultTarget;
         /// <summary>
         /// Finds target based on attack type, FindFirst by default
         /// </summary>
@@ -26,23 +32,24 @@ namespace Assets.Scripts.Towers
         /// <returns></returns>
         public GameObject FindTarget(AttackType attackType)
         {
+            defaultTarget = targets[0];
             return attackType switch
             {
                 AttackType.First => FindFirstEnemy(),
                 AttackType.Last => FindLastEnemy(),
                 AttackType.Strong => FindStrongestEnemy(),
                 AttackType.Close => FindClosestEnemy(),
-                _ => FindFirstEnemy()
+                _ => defaultTarget
             };
 
         }
 
         private GameObject FindClosestEnemy()
         {
-            GameObject closestEnemy = null;
+            GameObject closestEnemy = defaultTarget;
             var closestDistance = float.MaxValue;
 
-            foreach (var enemy in Targets)
+            foreach (var enemy in targets)
             {
                 var distance = Vector3.Distance(transform.position, enemy.transform.position);
                 if (!(distance < closestDistance)) continue;
@@ -55,15 +62,15 @@ namespace Assets.Scripts.Towers
 
         private GameObject FindFirstEnemy()
         {
-            GameObject currentFirst = null;
+            GameObject currentFirst = defaultTarget;
             var currentFirstDistance = float.MaxValue;
-            foreach (var target in Targets)
+            foreach (var target in targets)
             {
                 var enemyMovement = target.GetComponent<EnemyMovement>();
                 var dist = enemyMovement.GetDistanceToEnd();
 
                 if (!target.activeInHierarchy || !(dist < currentFirstDistance)) continue;
-                
+
                 currentFirstDistance = dist;
                 currentFirst = target;
             }
@@ -73,26 +80,27 @@ namespace Assets.Scripts.Towers
         /// todo() fix this
         private GameObject FindStrongestEnemy()
         {
-            GameObject strongestEnemy = null;
+            GameObject strongestEnemy = defaultTarget;
             var maxId = 0;
-            foreach (var enemy in Targets)
+            foreach (var enemy in targets)
             {
-/*                var enemyId = enemy.GetComponent<EnemyController>().CurrentActiveEnemy.Id;
+                /*                var enemyId = enemy.GetComponent<EnemyController>().CurrentActiveEnemy.Id;
 
-                if (enemyId <= maxId) continue;
+                                if (enemyId <= maxId) continue;
 
-                maxId = enemyId;
-                strongestEnemy = enemy;
-*/            }
+                                maxId = enemyId;
+                                strongestEnemy = enemy;
+                */
+            }
 
-            return Targets[0];
+            return targets[0];
         }
 
         private GameObject FindLastEnemy()
         {
-            GameObject currentFirst = null;
+            GameObject currentFirst = defaultTarget;
             var currentFirstDistance = float.MinValue;
-            foreach (var target in Targets)
+            foreach (var target in targets)
             {
                 var enemyMovement = target.GetComponent<EnemyMovement>();
                 var dist = enemyMovement.GetDistanceToEnd();
@@ -108,19 +116,20 @@ namespace Assets.Scripts.Towers
 
         private void RemoveInactiveTargets()
         {
-            Targets.RemoveAll(i => i == null || !i.activeInHierarchy);
+
+            targets.RemoveAll(i => i is null || !i.activeInHierarchy); // ?????????????
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Targets.Add(other.gameObject);
+            targets.Add(other.gameObject);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (Targets.Contains(other.gameObject))
+            if (targets.Contains(other.gameObject))
             {
-                Targets.Remove(other.gameObject);
+                targets.Remove(other.gameObject);
             }
         }
     }

@@ -58,6 +58,7 @@ namespace Assets.Scripts.Bullets
             }
             else
             {
+
                 transform.position += CurrentDirection * Bullet.Speed * Time.deltaTime;
             }
             DistanceBulletCanTravel();
