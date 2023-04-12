@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90088be52dd684459a9d87d300faf3d, type: 3}
+  m_Name: Income Generator Data
+  m_EditorClassIdentifier: 
+  TowerName: Income Generator
+  Range:
+  - 5
+  - 6
+  - 8
+  AttackSpeed:
+  - 1
+  - 1
+  - 1
+  UpgradeCost: f401000020030000e8030000
+  PurchaseCost: 1000
+  SellCost: 500
+  Id: 4
+  Bullet: {fileID: 7856509654082816346, guid: 218a2bb0fe3b7fa439d23dc450db5c14, type: 3}
+  Targetter: {fileID: 5099953796998234172, guid: e56dacdc9287e0f4db5ed532e4ea32cb,
+    type: 3}
+  TowerModels:
+  - {fileID: 3636018233757746079, guid: 5034938f3928155499c648fe9c923e7e, type: 3}
+  - {fileID: 3636018233757746079, guid: 621e347595e530f4bad279b4cb21f9c6, type: 3}
+  - {fileID: 3636018233757746079, guid: 4e9ce70d90382424b994048cae4260fa, type: 3}
