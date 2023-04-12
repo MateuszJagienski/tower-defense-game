@@ -7,7 +7,7 @@ namespace Assets.Scripts.Towers
     {
         private int numberOfBullets = 8;
 
-        protected override IEnumerator FireBullet()
+        protected override IEnumerator Fire()
         {
             while (Targetter.HasActiveTarget())
             {

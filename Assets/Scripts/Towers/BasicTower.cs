@@ -6,7 +6,7 @@ namespace Assets.Scripts.Towers
 {
     public class BasicTower : TowerController
     {
-        protected override IEnumerator FireBullet()
+        protected override IEnumerator Fire()
         {
             while (Targetter.HasActiveTarget())
             {            

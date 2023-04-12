@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI
         private int basicTowerId = 1;
         private int shotgunTowerId = 2;
         private int tackShooterId = 3;
+        private int incomeGeneratorId = 4;
         private EconomySystem economySystem;
         private WaveManager waveManager;
 
@@ -41,6 +42,11 @@ namespace Assets.Scripts.UI
         public void TackShooterTower()
         {
             ChangeTower(tackShooterId);
+        }
+
+        public void IncomeGeneratorTower()
+        {
+            ChangeTower(incomeGeneratorId);
         }
 
         public void AddGold()

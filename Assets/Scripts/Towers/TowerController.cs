@@ -51,10 +51,10 @@ namespace Assets.Scripts.Towers
 
         private void AttackEnemy()
         {
-            StartCoroutine(FireBullet());
+            StartCoroutine(Fire());
         }
 
-        protected abstract IEnumerator FireBullet();
+        protected abstract IEnumerator Fire();
 
         protected void PrepareBullet(Vector3 startedPosition, Transform target, BulletMovementType bulletMovementType)
         {

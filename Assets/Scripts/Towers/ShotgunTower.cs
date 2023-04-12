@@ -7,7 +7,7 @@ namespace Assets.Scripts.Towers
     {
         [SerializeField] private int numberOfBullets = 6;
 
-        protected override IEnumerator FireBullet()
+        protected override IEnumerator Fire()
         {
             while (Targetter.HasActiveTarget())
             {

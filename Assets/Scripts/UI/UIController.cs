@@ -9,12 +9,9 @@ namespace Assets.Scripts.UI
 {
     public class UIController : MonoBehaviour
     {
-        [SerializeField]
-        private Text goldText;
-        [SerializeField]
-        private Text livesText;
-        [SerializeField]
-        private Text waveText;
+        [SerializeField] private Text goldText;
+        [SerializeField] private Text livesText;
+        [SerializeField] private Text waveText;
 
         private void Start()
         {
