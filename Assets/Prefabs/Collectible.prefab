@@ -119,3 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 500
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  deathTime: 3
+  speed: 0

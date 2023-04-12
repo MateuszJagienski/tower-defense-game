@@ -7,40 +7,31 @@ namespace Assets.Scripts.Towers
     {
         [SerializeField] private int gold;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private float deathTime;
 
-        private void Start()
+        private void Awake()
         {
-            
+            Invoke("OnDestroy", deathTime);
         }
 
         private void Update()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask,
-        QueryTriggerInteraction.Ignore)) return;
-            Debug.Log(hit.collider);
-            if (hit.collider.TryGetComponent<Collectible>(out var c))
-            {
-                Debug.Log($"{hit.collider}");
-            }
-        }
-
-        private void OnMouseEnter()
-        {
-            Debug.Log("Mouse enter");
+            if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, layerMask)) return;
+            
             AddGold();
-        }
-
-        private void OnMouseOver()
-        {
-            Debug.Log("Mouse over");
         }
 
         private void AddGold()
         {
             EconomySystem.Instance.IncreaseGold(gold);
             gameObject.SetActive(false);
-            Destroy(gameObject, 2);
         }
+        private void OnDestroy()
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
     }
 }
