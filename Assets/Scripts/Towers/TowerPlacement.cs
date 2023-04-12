@@ -43,14 +43,12 @@ namespace Assets.Scripts.Towers
         private void SpawnTower()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log($"ray {ray}");
             if (!Physics.Raycast(ray, out var hit, Mathf.Infinity, placementLayerMask,
                     QueryTriggerInteraction.Ignore)) return;
             
             var x = hit.point.x;
             var z = hit.point.z;
             var y = hit.point.y;
-            Debug.Log($"x {x}, y {y}, z {z}");
             ghostTower.transform.position = new Vector3(x, y + 0.7f, z);
             ghostTowerRange.transform.position = new Vector3(x, y + 0.5f, z);
             ghostTowerRange.transform.localScale = new Vector3(range * 2, 0.1f, range * 2);
