@@ -10,27 +10,23 @@ namespace Assets.Scripts.Bullets
         public int SplashRange => bulletData.SplashRange[BulletLvl];
         public int Speed => bulletData.Speed[BulletLvl];
         public int Range => bulletData.Range[BulletLvl];
-        private int damage;
         public int Damage => damage;
         public BulletType BulletType => bulletData.BulletType;
+        
+        [SerializeField] private BulletData bulletData;
+        
+        private int damage;
 
-        [SerializeField]
-        private BulletData bulletData;
         public static int BulletLvl = 0;
-        void Start()
+
+        private void Start()
         {
             damage = InitialDamage;
         }
         public void TakeDamage(int damage, EnemyType enemyType)
         {
-            if (this.damage > damage)
-            {
-                this.damage -= damage;
-            }
-            else
-            {
-                DeactivateBullet();
-            }
+            if (this.damage > damage) this.damage -= damage;
+            else DeactivateBullet();
         }
         public void DeactivateBullet()
         {

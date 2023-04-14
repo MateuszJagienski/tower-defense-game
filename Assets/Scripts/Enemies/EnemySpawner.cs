@@ -41,21 +41,16 @@ namespace Assets.Scripts.Enemies
         {
             _pool.Get(out var en);
             var enemyMovement = en.GetComponent<EnemyMovement>();
-            enemyMovement.SetPath();
             var spawn = enemyMovement.GetCurrentWaypoint(en.CurrentWaypointIndex);
+            enemyMovement.SetPath();
             en.transform.position = spawn;
             en.ActivateEnemyByModelType(enemyModelType);
-            //var enemy = Instantiate(enemyController, spawnPosition.position, Quaternion.identity);
-            //enemy.ActivateEnemyByModelType(enemyID);
         }
         public EnemyController SpawnEnemy(EnemyModelType enemyModelType, Vector3 spawnPosition)
         {
             _pool.Get(out var en);
             en.transform.position = spawnPosition;
             en.ActivateEnemyByModelType(enemyModelType);
-            //var enemy = Instantiate(enemyController, spawnPosition, Quaternion.identity);
-            //enemy.ActivateEnemyByModelType(enemyID);
-            //return enemy;
             return en;
         }
 

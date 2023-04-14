@@ -169,7 +169,6 @@ namespace Assets.Scripts.Enemies
             if (!other.gameObject.TryGetComponent(out BulletController bulletController) ||
                 !other.gameObject.TryGetComponent(out Bullet bullet) ||
                 !other.gameObject.TryGetComponent(out colliderBullet)) return;
-
             var bulletTakenDamage = Math.Min(bullet.Damage, hp);
 
             OnEnemyDamaged?.Invoke(this);

@@ -62,15 +62,14 @@ namespace Assets.Scripts.Towers
             if (!ActiveBullet.TryGetComponent<BulletController>(out var bc)) return;
             
             bc.SetStartedPosition(startedPosition);
-            bc.SetTargetInfo(target);
             bc.SetBulletMovementType(bulletMovementType);
+            bc.SetTargetInfo(target);
         }
 
         // requires target direction vector, currentTarget.transform.position - transform.position;
         protected void PrepareBullet(Vector3 startedPosition, Vector3 targetDirection)
         {
-            ActiveBullet = Instantiate(BulletPrefab, new Vector3(transform.position.x, 1.282309f, transform.position.z), 
-                Quaternion.identity);
+            ActiveBullet = Instantiate(BulletPrefab, startedPosition, Quaternion.identity);
             if (!ActiveBullet.TryGetComponent<BulletController>(out var bc)) return;
 
             bc.SetStartedPosition(startedPosition);

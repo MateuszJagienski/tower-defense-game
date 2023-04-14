@@ -1,5 +1,7 @@
+using System;
 using Assets.Scripts.Enemies;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts.Bullets
 {
@@ -29,6 +31,36 @@ namespace Assets.Scripts.Bullets
         }
 
 
+        public void Init()
+        {
+/*            //         public void SetTargetInfo(Transform target)
+            {
+                this.Target = target;
+                CurrentDirection = (target.transform.position - StartedPosition).normalized; // ???
+                CurrentDirection.y = 0;
+                CurrentTargetPosition = target.transform.position;
+            }
+
+            public void SetShotDirection(Vector3 direction)
+            {
+                CurrentDirection = direction.normalized;
+                var rotation = Quaternion.LookRotation(CurrentDirection.normalized);
+                rotation *= transform.rotation;
+                transform.rotation = rotation;
+            }
+
+            public void SetStartedPosition(Vector3 startedPosition)
+            {
+                this.StartedPosition = startedPosition;
+            }
+
+            public void SetBulletMovementType(BulletMovementType bulletMovementType)
+            {
+                this.BulletMovementType = bulletMovementType;
+            }*/
+            
+        }
+
         public void Attack()
         {
             switch (BulletMovementType)
@@ -42,10 +74,15 @@ namespace Assets.Scripts.Bullets
                 case BulletMovementType.VerticallyLaunched:
                     //
                     break;
+                default:
+                    FollowEnemy(Target);
+                    break;
             }
         }
 
-        public void FollowEnemy(Transform target)
+        #region Bullet Movement
+
+        private void FollowEnemy(Transform target)
         {
             transform.LookAt(target.position, Vector3.forward);
             var step = Bullet.Speed * Time.deltaTime;
@@ -56,7 +93,7 @@ namespace Assets.Scripts.Bullets
                 CurrentDirection = (target.position - StartedPosition).normalized;
                 transform.position = Vector3.MoveTowards(transform.position, target.position, step);
             }
-            else
+            else // lost target behaviour
             {
 
                 transform.position += CurrentDirection * Bullet.Speed * Time.deltaTime;
@@ -64,13 +101,13 @@ namespace Assets.Scripts.Bullets
             DistanceBulletCanTravel();
         }
 
-        public void AttackInStraightDirection(Vector3 directionTarget)
+        private void AttackInStraightDirection(Vector3 directionTarget)
         {
-            var direction = directionTarget;
-            transform.position += direction * Bullet.Speed * Time.deltaTime;
+            transform.position += directionTarget * Bullet.Speed * Time.deltaTime;
             DistanceBulletCanTravel();
         }
 
+        #endregion
         private void DistanceBulletCanTravel()
         {
             var distance = Vector3.Distance(transform.position, StartedPosition);
@@ -79,8 +116,8 @@ namespace Assets.Scripts.Bullets
                 Bullet.DeactivateBullet();
             }
         }
-
-        public void EnemyHit()
+        
+        public void DealSplashDamage()
         {
             if (Bullet.SplashRange <= 0)
             {
@@ -99,11 +136,9 @@ namespace Assets.Scripts.Bullets
 
         private Collider[] GetEnemiesInSplashRange()
         {
-            var enemiesInSplashRange = Physics.OverlapSphere(transform.position, Bullet.SplashRange);
-            return enemiesInSplashRange;
+            return Physics.OverlapSphere(transform.position, Bullet.SplashRange);
         }
 
-        //
         public void SetTargetInfo(Transform target)
         {
             this.Target = target;
@@ -118,21 +153,13 @@ namespace Assets.Scripts.Bullets
             var rotation = Quaternion.LookRotation(CurrentDirection.normalized);
             rotation *= transform.rotation;
             transform.rotation = rotation;
-            //transform.LookAt(currentDirection);
-
         }
 
         public void SetStartedPosition(Vector3 startedPosition)
         {
             this.StartedPosition = startedPosition;
         }
-
-/*    public void SetBulletType(BulletType bulletType)
-    {
-        this.bulletType = bulletType;
-    }
-*/
-
+        
         public void SetBulletMovementType(BulletMovementType bulletMovementType)
         {
             this.BulletMovementType = bulletMovementType;

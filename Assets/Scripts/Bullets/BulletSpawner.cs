@@ -2,9 +2,9 @@
 
 namespace Assets.Scripts.Bullets
 {
-    public class BulletSpawner : MonoBehaviour, IBulletSpawner
+    public class BulletSpawner : MonoBehaviour
     {
-        public Bullet SpawnBulletAtPosition(BulletType bulletType, Vector3 position)
+        public static Bullet SpawnBulletAtPosition(BulletType bulletType, Vector3 position)
         {
             var bullet = BulletPool.Get(bulletType);
             if (bullet == null)
