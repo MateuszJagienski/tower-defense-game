@@ -6,20 +6,19 @@ namespace Assets.Scripts.Towers
 {
     public class BasicTower : TowerController
     {
+        [SerializeField] private Transform[] lanuchers;
+        [SerializeField] private BulletMovementType bulletMovementType;
+
         protected override IEnumerator Fire()
         {
             while (Targetter.HasActiveTarget())
             {            
                 CurrentTarget = Targetter.FindTarget(AttackType);
-                if (CurrentTarget == null)
+                for (var i = 0; i < lanuchers.Length; i++)
                 {
-                    Debug.Log("Cur target null");
-                    yield return null;
+                    PrepareBullet(lanuchers[i].position, CurrentTarget.transform, bulletMovementType);
+                    PrepareBullet(lanuchers[i].position, CurrentTarget.transform, bulletMovementType);
                 }
-                var direction = CurrentTarget.transform.position - transform.position;
-                //PrepareBullet(transform.position, direction, BulletMovementType.Straight);
-                //PrepareBullet(transform.position, currentTarget.transform, BulletMovementType.Straight); // for follow type, fix it later
-                PrepareBullet(transform.position, CurrentTarget.transform, BulletMovementType.Follow); // for follow type, fix it later
 
                 yield return new WaitForSeconds(1 / Tower.AttackSpeed);
             } 

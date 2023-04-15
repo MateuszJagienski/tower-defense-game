@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Bullet
   m_EditorClassIdentifier: 
   InitialDamage: 01000000
-  Speed: 14000000
+  Speed: 19000000
   Range: 0a000000
   SplashRange: 00000000
   SplashDamage: 00000000

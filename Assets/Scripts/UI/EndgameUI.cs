@@ -9,10 +9,8 @@ namespace Assets.Scripts.UI
     public class EndgameUI : MonoBehaviour
     {
         private Canvas canvas;
-        [SerializeField]
-        private Text endgameText;
-        [SerializeField]
-        private Text buttonText;
+        [SerializeField] private Text endgameText;
+        [SerializeField] private Text buttonText;
         private bool win;
 
         void Start()
