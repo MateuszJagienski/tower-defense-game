@@ -47,6 +47,7 @@ namespace Assets.Scripts.Towers
             if (!Targetter.HasActiveTarget() || IsAtacking) return;
             IsAtacking = true;
             AttackEnemy();
+            RotateTower();
         }
 
         private void AttackEnemy()
@@ -56,6 +57,15 @@ namespace Assets.Scripts.Towers
 
         protected abstract IEnumerator Fire();
 
+        protected virtual IEnumerator RotateTower()
+        {
+            while (Targetter.HasActiveTarget())
+            {
+                transform.LookAt(CurrentTarget.transform);
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
         protected void PrepareBullet(Vector3 startedPosition, Transform target, BulletMovementType bulletMovementType)
         {
             ActiveBullet = Instantiate(BulletPrefab, startedPosition, Quaternion.LookRotation(target.position));
